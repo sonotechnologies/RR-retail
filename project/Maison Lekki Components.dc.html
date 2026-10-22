@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&amp;family=Cormorant+Garamond:wght@500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E6E2DC;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:hover{opacity:.75}@keyframes spin{to{transform:rotate(360deg)}}</style>
+</helmet>
+<section ref="{{ skinRef }}" style="--bg:#F7F2EA;--surface:#FFFBF5;--text:#1E1B17;--muted:#6B6258;--accent:#B5532F;--ink:#FFFBF5;--line:#E4DBCD;--fd:'Fraunces',serif;--fdw:380;--rc:2px;padding:80px;display:flex;flex-direction:column;gap:48px;font-family:'Manrope',sans-serif;color:#1E1B17">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6B6258">Round 2 · Component sheet</div>
+<div style="font-family:'Fraunces',serif;font-size:48px;line-height:1">Components and states</div>
+<div style="font-size:15px;color:#6B6258">Every value reads from skin tokens. Switch skin in Tweaks.</div>
+</div>
+<div id="4a" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center"><span style="background:#1E1B17;color:#FFFBF5;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px">4a</span><span style="font-size:13px;color:#6B6258">Component sheet</span></div>
+<div style="width:1440px;background:var(--bg);color:var(--text);padding:64px;box-sizing:border-box;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:56px 40px">
+<div style="grid-column:span 12;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">01 · Header — default · scrolled · menu open</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 390px;gap:20px;align-items:start">
+<div style="height:76px;background:#3a2f26 url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;color:#FFFBF5;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-size:13px"><span style="letter-spacing:.12em;text-transform:uppercase">Kitchens</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:24px">{{ brand }}</span><span style="display:flex;gap:12px;align-items:center"><span style="background:var(--accent);color:var(--ink);padding:9px 16px;border-radius:99px;font-weight:600">Reserve</span>Cart 0</span></div>
+<div style="height:76px;background:var(--bg);border-bottom:1px solid var(--line);padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-size:13px;box-shadow:0 1px 0 var(--line)"><span style="letter-spacing:.12em;text-transform:uppercase">Kitchens</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:24px">{{ brand }}</span><span style="display:flex;gap:12px;align-items:center"><span style="background:var(--accent);color:var(--ink);padding:9px 16px;border-radius:99px;font-weight:600">Reserve</span>Cart 3</span></div>
+<div style="height:420px;background:var(--text);color:var(--bg);padding:20px;display:flex;flex-direction:column;gap:6px;box-sizing:border-box">
+<div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:24px"><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:22px">{{ brand }}</span><span style="font-size:24px;line-height:1">×</span></div>
+<span style="font-family:var(--fd);font-weight:var(--fdw);font-size:40px;line-height:1.15">Restaurant</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:40px;line-height:1.15">Café</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:40px;line-height:1.15">Bakery</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:40px;line-height:1.15;opacity:.5">Events</span>
+<span style="margin-top:auto;background:var(--accent);color:var(--ink);padding:14px;border-radius:99px;text-align:center;font-weight:600">Save me a seat</span>
+</div>
+</div>
+</div>
+<div style="grid-column:span 7;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">02 · Buttons</div>
+<div style="display:grid;grid-template-columns:90px repeat(5,minmax(0,1fr));gap:12px 10px;align-items:center;font-size:14px;font-weight:600">
+<span></span><span style="font-size:11px;color:var(--muted);font-weight:500">Default</span><span style="font-size:11px;color:var(--muted);font-weight:500">Hover</span><span style="font-size:11px;color:var(--muted);font-weight:500">Pressed</span><span style="font-size:11px;color:var(--muted);font-weight:500">Loading</span><span style="font-size:11px;color:var(--muted);font-weight:500">Disabled</span>
+<span style="font-size:12px;color:var(--muted);font-weight:500">Primary</span>
+<span style="background:var(--accent);color:var(--ink);padding:12px;border-radius:99px;text-align:center">Reserve</span>
+<span style="background:var(--accent);color:var(--ink);padding:12px;border-radius:99px;text-align:center;filter:brightness(1.08);box-shadow:0 6px 14px -6px var(--accent)">Reserve</span>
+<span style="background:var(--accent);color:var(--ink);padding:12px;border-radius:99px;text-align:center;filter:brightness(.9);transform:scale(.97)">Reserve</span>
+<span style="background:var(--accent);color:var(--ink);padding:12px;border-radius:99px;display:flex;justify-content:center"><span style="width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:99px;animation:spin .8s linear infinite"></span></span>
+<span style="background:var(--line);color:var(--muted);padding:12px;border-radius:99px;text-align:center">Reserve</span>
+<span style="font-size:12px;color:var(--muted);font-weight:500">Secondary</span>
+<span style="border:1px solid var(--text);padding:11px;border-radius:99px;text-align:center">View menu</span>
+<span style="background:var(--text);color:var(--bg);border:1px solid var(--text);padding:11px;border-radius:99px;text-align:center">View menu</span>
+<span style="border:1px solid var(--text);padding:11px;border-radius:99px;text-align:center;transform:scale(.97);opacity:.8">View menu</span>
+<span style="border:1px solid var(--text);padding:11px;border-radius:99px;display:flex;justify-content:center"><span style="width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:99px;animation:spin .8s linear infinite"></span></span>
+<span style="border:1px solid var(--line);color:var(--muted);padding:11px;border-radius:99px;text-align:center">View menu</span>
+<span style="font-size:12px;color:var(--muted);font-weight:500">WhatsApp</span>
+<span style="background:#25D366;color:#0B2E17;padding:12px;border-radius:99px;text-align:center;display:flex;gap:6px;justify-content:center;align-items:center"><span style="width:8px;height:8px;border-radius:9px;background:#0B2E17"></span>Send</span>
+<span style="background:#2BE06F;color:#0B2E17;padding:12px;border-radius:99px;text-align:center;box-shadow:0 6px 14px -6px #25D366">Send</span>
+<span style="background:#1FB858;color:#0B2E17;padding:12px;border-radius:99px;text-align:center;transform:scale(.97)">Send</span>
+<span style="background:#25D366;color:#0B2E17;padding:12px;border-radius:99px;display:flex;justify-content:center"><span style="width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:99px;animation:spin .8s linear infinite"></span></span>
+<span style="background:var(--line);color:var(--muted);padding:12px;border-radius:99px;text-align:center">Send</span>
+</div>
+</div>
+<div style="grid-column:span 5;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">03 · Open-now badge · Toast · Promo banner</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="background:var(--surface);border:1px solid var(--line);font-size:12px;padding:7px 12px;border-radius:99px;display:flex;gap:7px;align-items:center"><span style="width:7px;height:7px;border-radius:9px;background:#2E9E5B"></span>Open until 10pm</span>
+<span style="background:var(--surface);border:1px solid var(--line);font-size:12px;padding:7px 12px;border-radius:99px;display:flex;gap:7px;align-items:center"><span style="width:7px;height:7px;border-radius:9px;background:#D9922E"></span>Closing soon · 6pm</span>
+<span style="background:var(--surface);border:1px solid var(--line);font-size:12px;padding:7px 12px;border-radius:99px;display:flex;gap:7px;align-items:center;color:var(--muted)"><span style="width:7px;height:7px;border-radius:9px;background:#9A9187"></span>Opens 8am</span>
+</div>
+<div style="background:var(--text);color:var(--bg);padding:14px 16px;border-radius:var(--rc);display:flex;justify-content:space-between;font-size:14px"><span>Added · Chin-chin croissant</span><span style="font-weight:700;text-decoration:underline">Undo</span></div>
+<div style="background:var(--text);color:var(--bg);padding:14px 16px;border-radius:var(--rc);display:flex;justify-content:space-between;font-size:14px;opacity:.35;transform:translateY(8px)"><span>Toast · hiding</span><span>Undo</span></div>
+<div style="background:var(--accent);color:var(--ink);font-size:13px;padding:10px 16px;display:flex;justify-content:space-between"><span>Fresh chin-chin croissants every morning from 7am</span><span>×</span></div>
+<div style="border:1px dashed var(--line);font-size:12px;padding:10px 16px;color:var(--muted);font-family:ui-monospace,monospace">promo dismissed · collapses to 0 height, remembered for the session</div>
+</div>
+<div style="grid-column:span 6;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">04 · Concept card — default · hover zoom · closed</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+<div style="display:flex;flex-direction:column;gap:12px"><div style="aspect-ratio:3/4;border-radius:var(--rc);background:#D9A066 url(https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;position:relative"><span style="position:absolute;top:10px;left:10px;background:var(--bg);font-size:11px;padding:5px 9px;border-radius:99px;display:flex;gap:6px;align-items:center"><span style="width:6px;height:6px;border-radius:9px;background:#2E9E5B"></span>Open until 6pm</span></div><div style="display:flex;gap:10px;align-items:baseline;border-top:1px solid var(--line);padding-top:10px"><span style="font-size:11px;font-weight:700;color:#D9A066">03</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:20px">The Bakery</span></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="aspect-ratio:3/4;border-radius:var(--rc);overflow:hidden;position:relative"><div style="position:absolute;inset:0;background:#D9A066 url(https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;transform:scale(1.06)"></div><span style="position:absolute;bottom:12px;right:12px;width:56px;height:56px;border-radius:99px;background:var(--bg);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">View</span></div><div style="display:flex;gap:10px;align-items:baseline;border-top:1px solid var(--text);padding-top:10px"><span style="font-size:11px;font-weight:700;color:#D9A066">03</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:20px">The Bakery →</span></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="aspect-ratio:3/4;border-radius:var(--rc);background:#E8A6A1 url(https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;position:relative;filter:saturate(.5)"><span style="position:absolute;top:10px;left:10px;background:var(--bg);color:var(--muted);font-size:11px;padding:5px 9px;border-radius:99px;display:flex;gap:6px;align-items:center"><span style="width:6px;height:6px;border-radius:9px;background:#9A9187"></span>Opens 11am</span></div><div style="display:flex;gap:10px;align-items:baseline;border-top:1px solid var(--line);padding-top:10px"><span style="font-size:11px;font-weight:700;color:#E8A6A1">04</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:20px">The Gelateria</span></div></div>
+</div>
+</div>
+<div style="grid-column:span 6;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">05 · Dish card — default · hover · added</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="aspect-ratio:1;border-radius:var(--rc);background:var(--line) url(https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&amp;q=60&amp;auto=format&amp;fit=crop) center/cover"></div><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:19px">Chin-chin croissant</span><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">₦4,000</span><span style="width:40px;height:40px;border-radius:99px;border:1px solid var(--text);display:flex;align-items:center;justify-content:center;font-size:18px">+</span></div></div>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="aspect-ratio:1;border-radius:var(--rc);overflow:hidden;position:relative"><div style="position:absolute;inset:0;background:var(--line) url(https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;transform:scale(1.05)"></div></div><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:19px">Chin-chin croissant</span><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">₦4,000</span><span style="width:40px;height:40px;border-radius:99px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px">+</span></div></div>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="aspect-ratio:1;border-radius:var(--rc);background:var(--line) url(https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;box-shadow:inset 0 0 0 3px var(--accent)"></div><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:19px">Chin-chin croissant</span><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">₦4,000</span><span style="display:flex;align-items:center;height:40px;border-radius:99px;background:var(--text);color:var(--bg);font-weight:700"><span style="width:30px;text-align:center">−</span>2<span style="width:30px;text-align:center">+</span></span></div></div>
+</div>
+</div>
+<div style="grid-column:span 7;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">06 · Menu row — default · in cart · sold out</div>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line);align-items:center"><div style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="display:flex;gap:6px"><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:99px;border:1px solid #B23A1E;color:#B23A1E">Spicy</span></span><span style="font-weight:600">Suya beef roll</span><span style="font-size:14px;color:var(--muted)">Flaky pastry, minced beef, yaji spice and onion.</span></div><span style="font-weight:600">₦4,500</span><span style="width:44px;height:44px;border-radius:99px;border:1px solid var(--text);display:flex;align-items:center;justify-content:center;font-size:20px">+</span></div>
+<div style="display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line);align-items:center"><div style="width:64px;height:64px;border-radius:var(--rc);background:var(--line) url(https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200&amp;q=60&amp;auto=format&amp;fit=crop) center/cover"></div><div style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="display:flex;gap:6px"><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:99px;border:1px solid var(--accent);color:var(--accent)">New</span></span><span style="font-weight:600">Chin-chin croissant</span><span style="font-size:14px;color:var(--muted)">Laminated butter croissant rolled in chin-chin.</span></div><span style="font-weight:600">₦4,000</span><span style="display:flex;align-items:center;height:44px;border-radius:99px;background:var(--text);color:var(--bg);font-weight:700"><span style="width:32px;text-align:center">−</span>1<span style="width:32px;text-align:center">+</span></span></div>
+<div style="display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line);align-items:center;opacity:.5"><div style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="display:flex;gap:6px"><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:99px;border:1px solid var(--muted);color:var(--muted)">Sold out</span></span><span style="font-weight:600">Zobo Danish</span><span style="font-size:14px;color:var(--muted)">Hibiscus custard and ginger crumble.</span></div><span style="font-weight:600;text-decoration:line-through">₦4,800</span><span style="font-size:12px;color:var(--muted);width:90px;text-align:right">Back tomorrow</span></div>
+</div>
+</div>
+<div style="grid-column:span 5;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">07 · Category tabs — active · inactive</div>
+<div style="display:flex;gap:28px;border-bottom:1px solid var(--line);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600"><span style="padding:14px 0 12px;border-bottom:2px solid var(--accent)">Breads</span><span style="padding:14px 0 12px;color:var(--muted)">Pastries</span><span style="padding:14px 0 12px;color:var(--muted)">Cakes</span><span style="padding:14px 0 12px;color:var(--muted)">Drinks</span></div>
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:16px">08 · Form fields — default · focus · filled · error</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;font-size:16px">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="padding:10px 0;border-bottom:1px solid var(--line);color:#9A9187">Your name</span></div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">Phone</span><span style="padding:4px 0 10px;border-bottom:2px solid var(--accent)">0803 12|</span></div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Name</span><span style="padding:4px 0 10px;border-bottom:1px solid var(--text)">Ada Okafor</span></div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="padding:10px 0;border-bottom:1px solid #B23A1E;color:#9A9187">Phone</span><span style="font-size:13px;color:#B23A1E">Enter an 11-digit number</span></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="padding:10px 15px;border-radius:99px;background:var(--text);color:var(--bg);font-size:14px;font-weight:600">8:00pm</span><span style="padding:10px 15px;border-radius:99px;border:1px solid var(--line);font-size:14px;font-weight:600">8:30pm</span><span style="padding:10px 15px;border-radius:99px;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--muted);text-decoration:line-through">7:00pm</span><span style="display:flex;align-items:center;gap:4px;margin-left:8px"><span style="width:40px;height:40px;border-radius:99px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center">−</span><span style="width:28px;text-align:center;font-weight:700">4</span><span style="width:40px;height:40px;border-radius:99px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center">+</span></span></div>
+</div>
+<div style="grid-column:span 5;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">09 · Video tile — idle · playing</div>
+<div style="display:flex;gap:16px">
+<div style="width:160px;aspect-ratio:9/16;border-radius:var(--rc);background:#2a241f url(https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;display:flex;align-items:center;justify-content:center;position:relative"><span style="width:48px;height:48px;border-radius:99px;background:#FFFBF5e6;display:flex;align-items:center;justify-content:center"><span style="width:0;height:0;border-left:13px solid #1E1B17;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px"></span></span><span style="position:absolute;left:10px;bottom:10px;color:#FFFBF5;font-size:12px;font-weight:600">▶ 212K</span></div>
+<div style="width:160px;aspect-ratio:9/16;border-radius:var(--rc);background:#2a241f url(https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;position:relative;box-shadow:inset 0 0 0 2px var(--accent)"><span style="position:absolute;left:10px;right:10px;bottom:12px;height:3px;background:#FFFBF555;border-radius:9px"><span style="display:block;width:40%;height:100%;background:#FFFBF5;border-radius:9px"></span></span><span style="position:absolute;top:10px;right:10px;color:#FFFBF5;font-size:11px;font-weight:700;letter-spacing:.1em">❚❚</span></div>
+</div>
+</div>
+<div style="grid-column:span 4;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">10 · Cart — empty · filled · sending</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:18px;background:var(--surface);border:1px solid var(--line)"><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:20px">Your order</span><div style="height:90px;background:var(--line) url(https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&amp;q=60&amp;auto=format&amp;fit=crop) center/cover;border-radius:var(--rc)"></div><span style="color:var(--accent);font-family:var(--fd);font-weight:var(--fdw);font-size:17px">Start with something sweet →</span></div>
+<div style="display:flex;justify-content:space-between;padding:14px 18px;background:var(--surface);border:1px solid var(--line);font-size:14px"><span>3 items · The Bakery</span><span style="font-weight:700">₦15,000</span></div>
+<span style="background:#25D366;color:#0B2E17;padding:14px;border-radius:99px;display:flex;gap:10px;justify-content:center;align-items:center;font-weight:700"><span style="width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:99px;animation:spin .8s linear infinite"></span>Opening WhatsApp…</span>
+</div>
+<div style="grid-column:span 3;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">11 · Floating WhatsApp</div>
+<div style="display:flex;gap:20px;align-items:center"><span style="width:56px;height:56px;border-radius:99px;background:#25D366;color:#0B2E17;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;box-shadow:0 8px 20px -6px #0006">WA</span><span style="width:56px;height:56px;border-radius:99px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted)">hidden</span></div>
+<div style="font-size:13px;line-height:1.55;color:var(--muted)">Hides while the cart sheet is open. Bottom-right, 16px inset, mobile only.</div>
+</div>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;skin&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Maison Lekki&quot;,&quot;Napoleon&quot;],&quot;default&quot;:&quot;Maison Lekki&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const SK = {
+  ml: { '--bg':'#F7F2EA','--surface':'#FFFBF5','--text':'#1E1B17','--muted':'#6B6258','--accent':'#B5532F','--ink':'#FFFBF5','--line':'#E4DBCD','--fd':"'Fraunces',serif",'--fdw':'380','--rc':'2px' },
+  np: { '--bg':'#0E0D0B','--surface':'#1A1814','--text':'#F3EDE2','--muted':'#A69C8C','--accent':'#C9A24B','--ink':'#0E0D0B','--line':'#2E2A23','--fd':"'Cormorant Garamond',serif",'--fdw':'600','--rc':'0px' }
+};
+class Component extends DCLogic {
+  skinRef = React.createRef();
+  k() { return (this.props.skin ?? 'Maison Lekki') === 'Napoleon' ? 'np' : 'ml'; }
+  componentDidMount() { this.apply(); }
+  componentDidUpdate() { this.apply(); }
+  apply() { const el = this.skinRef.current; if (!el) return; const v = SK[this.k()]; for (const p in v) el.style.setProperty(p, v[p]); }
+  renderVals() { return { skinRef:this.skinRef, brand:this.k() === 'np' ? 'Napoleon' : 'Maison Lekki' }; }
+}
+</script>
+</body>
+</html>

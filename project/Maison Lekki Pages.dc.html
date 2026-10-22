@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&amp;family=Cormorant+Garamond:wght@500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E6E2DC;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:hover{opacity:.75}::-webkit-scrollbar{width:0;height:0}input::placeholder,textarea::placeholder{color:#9A9187}</style>
+</helmet>
+<section ref="{{ skinRef }}" style="--bg:#F7F2EA;--surface:#FFFBF5;--text:#1E1B17;--muted:#6B6258;--accent:#B5532F;--ink:#FFFBF5;--line:#E4DBCD;--fd:'Fraunces',serif;--fdw:380;--rc:2px;padding:80px;display:flex;flex-direction:column;gap:48px;font-family:'Manrope',sans-serif;color:#1E1B17">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6B6258">Round 2 · Secondary pages + WhatsApp</div>
+<div style="font-family:'Fraunces',serif;font-size:48px;line-height:1">Reserve, Cakes, Events, Visit</div>
+<div style="font-size:15px;color:#6B6258;max-width:70ch">Fill in Reserve or Cakes and the matching WhatsApp preview in 3b updates live. Submitting with no name shows the error state.</div>
+</div>
+<div id="3a" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center"><span style="background:#1E1B17;color:#FFFBF5;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px">3a</span><span style="font-size:13px;color:#6B6258">Mobile 390 · Reserve · Cakes &amp; bulk · Events · Visit</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+<div style="width:390px;height:844px;overflow-y:auto;background:var(--bg);color:var(--text);box-shadow:0 30px 60px -30px #00000040">
+<div style="height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)"><span style="font-size:20px">←</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:22px">{{ brand }}</span><span style="width:20px"></span></div>
+<div style="height:220px;background:var(--line) url({{ resImg }}) center/cover"></div>
+<div style="padding:32px 20px 48px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Reserve</div><div style="font-family:var(--fd);font-weight:var(--fdw);font-size:34px;line-height:1.05">Save me a seat.</div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Date</div>
+<div style="display:flex;gap:8px;overflow-x:auto;margin:0 -20px;padding:0 20px"><sc-for list="{{ dates }}" as="c" hint-placeholder-count="5"><span onClick="{{ c.pick }}" style="cursor:pointer;flex:0 0 58px;height:68px;border-radius:var(--rc);border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase">{{ c.dow }}</span><span style="font-size:20px;font-weight:600">{{ c.day }}</span></span></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Time</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ times }}" as="c" hint-placeholder-count="6"><span onClick="{{ c.pick }}" style="cursor:pointer;padding:11px 16px;border-radius:99px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};font-size:14px;font-weight:600;text-decoration:{{ c.strike }}">{{ c.label }}</span></sc-for></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><span style="font-size:15px;font-weight:600">Guests</span><span style="display:flex;align-items:center;gap:4px"><span onClick="{{ gDec }}" style="cursor:pointer;width:44px;height:44px;border-radius:99px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:20px">−</span><span style="min-width:36px;text-align:center;font-size:18px;font-weight:700">{{ guests }}</span><span onClick="{{ gInc }}" style="cursor:pointer;width:44px;height:44px;border-radius:99px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:20px">+</span></span></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Room</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ rooms }}" as="c" hint-placeholder-count="3"><span onClick="{{ c.pick }}" style="cursor:pointer;padding:11px 16px;border-radius:99px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};font-size:14px;font-weight:600">{{ c.label }}</span></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<input value="{{ rName }}" onChange="{{ setRName }}" placeholder="Your name" style="background:transparent;border:0;border-bottom:1px solid {{ nameLine }};padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none">
+<sc-if value="{{ nameErr }}"><span style="font-size:13px;color:#B23A1E">Tell us who to save the seat for.</span></sc-if>
+</div>
+<input value="{{ rPhone }}" onChange="{{ setRPhone }}" placeholder="Phone" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none;margin-top:-12px">
+<input value="{{ rNote }}" onChange="{{ setRNote }}" placeholder="Note (birthday, high chair, allergies)" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none;margin-top:-12px">
+<span onClick="{{ submitRes }}" style="cursor:pointer;background:#25D366;color:#0B2E17;padding:16px;border-radius:99px;text-align:center;font-weight:700;font-size:16px">{{ resCta }}</span>
+<span style="font-size:13px;color:var(--muted);text-align:center;margin-top:-16px">Opens WhatsApp with your booking filled in.</span>
+</div>
+</div>
+<div style="width:390px;height:844px;overflow-y:auto;background:var(--bg);color:var(--text);box-shadow:0 30px 60px -30px #00000040">
+<div style="height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)"><span style="font-size:20px">←</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:22px">{{ brand }}</span><span style="width:20px"></span></div>
+<div style="padding:32px 20px 48px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Cakes &amp; bulk orders</div><div style="font-family:var(--fd);font-weight:var(--fdw);font-size:34px;line-height:1.05">Tell us what you're celebrating.</div><div style="font-size:15px;line-height:1.6;color:var(--muted)">We need 72 hours for custom cakes, 48 for trays and boxes.</div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">What do you need?</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><sc-for list="{{ cTypes }}" as="c" hint-placeholder-count="3"><span onClick="{{ c.pick }}" style="cursor:pointer;padding:14px 6px;border-radius:var(--rc);border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};font-size:14px;font-weight:600;text-align:center">{{ c.label }}</span></sc-for></div></div>
+<input value="{{ cDate }}" onChange="{{ setCDate }}" placeholder="Date needed (e.g. Sat 31 Oct)" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none">
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Size</div><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ cSizes }}" as="c" hint-placeholder-count="4"><span onClick="{{ c.pick }}" style="cursor:pointer;padding:11px 16px;border-radius:99px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};font-size:14px;font-weight:600">{{ c.label }}</span></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Flavour</div><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ cFlavours }}" as="c" hint-placeholder-count="5"><span onClick="{{ c.pick }}" style="cursor:pointer;padding:11px 16px;border-radius:99px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};font-size:14px;font-weight:600">{{ c.label }}</span></sc-for></div></div>
+<input value="{{ cMsg }}" onChange="{{ setCMsg }}" placeholder="Message on the cake" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none">
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Budget</div><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ cBudgets }}" as="c" hint-placeholder-count="4"><span onClick="{{ c.pick }}" style="cursor:pointer;padding:11px 16px;border-radius:99px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.ink }};font-size:14px;font-weight:600">{{ c.label }}</span></sc-for></div></div>
+<div style="padding:16px;border:1px dashed var(--line);border-radius:var(--rc);font-size:14px;line-height:1.55;color:var(--muted)">Have a reference picture? Send it to us on WhatsApp right after this message.</div>
+<span onClick="{{ submitCake }}" style="cursor:pointer;background:#25D366;color:#0B2E17;padding:16px;border-radius:99px;text-align:center;font-weight:700;font-size:16px">{{ cakeCta }}</span>
+</div>
+</div>
+<div style="width:390px;height:844px;overflow-y:auto;background:var(--bg);color:var(--text);box-shadow:0 30px 60px -30px #00000040">
+<div style="height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)"><span style="font-size:20px">←</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:22px">{{ brand }}</span><span style="width:20px"></span></div>
+<div style="display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:150px 150px;gap:6px;padding:6px">
+<div style="grid-row:1 / 3;background:var(--line) url({{ ev1 }}) center/cover;border-radius:var(--rc)"></div>
+<div style="background:var(--line) url({{ ev2 }}) center/cover;border-radius:var(--rc)"></div>
+<div style="background:var(--line) url({{ ev3 }}) center/cover;border-radius:var(--rc)"></div>
+</div>
+<div style="padding:32px 20px 48px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Events &amp; private hire</div><div style="font-family:var(--fd);font-weight:var(--fdw);font-size:34px;line-height:1.05">Take over a room, or the whole house.</div></div>
+<div style="display:flex;flex-direction:column">
+<div style="display:grid;grid-template-columns:1fr 64px 72px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:8px"><span>Area</span><span style="text-align:right">Seated</span><span style="text-align:right">Standing</span></div>
+<sc-for list="{{ caps }}" as="c" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:1fr 64px 72px;padding:14px 0;border-top:1px solid var(--line);font-size:15px"><span style="font-weight:600">{{ c.a }}</span><span style="text-align:right">{{ c.seated }}</span><span style="text-align:right">{{ c.standing }}</span></div></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Occasion</div><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ occasions }}" as="o" hint-placeholder-count="5"><span style="padding:11px 16px;border-radius:99px;border:1px solid var(--line);font-size:14px;font-weight:600">{{ o.label }}</span></sc-for></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<input placeholder="Date" style="min-width:0;background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none">
+<input placeholder="Guests" style="min-width:0;background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none">
+</div>
+<input placeholder="Name" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none;margin-top:-12px">
+<input placeholder="Phone or email" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none;margin-top:-12px">
+<input placeholder="Tell us about it" style="background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 0;font:inherit;font-size:16px;color:var(--text);outline:none;margin-top:-12px">
+<span style="cursor:pointer;background:var(--accent);color:var(--ink);padding:16px;border-radius:99px;text-align:center;font-weight:700;font-size:16px">Send enquiry</span>
+<span style="font-size:13px;color:var(--muted);text-align:center;margin-top:-16px">Our events lead replies within a day.</span>
+</div>
+</div>
+<div style="width:390px;height:844px;overflow-y:auto;background:var(--bg);color:var(--text);box-shadow:0 30px 60px -30px #00000040">
+<div style="height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)"><span style="font-size:20px">←</span><span style="font-family:var(--fd);font-weight:var(--fdw);font-size:22px">{{ brand }}</span><span style="width:20px"></span></div>
+<div style="height:380px;background:repeating-linear-gradient(135deg,var(--line) 0 1px,transparent 1px 10px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);position:relative">map embed · pin on venue<span style="position:absolute;left:50%;top:45%;width:16px;height:16px;border-radius:99px;background:var(--accent);border:3px solid var(--bg);transform:translate(-50%,-50%)"></span></div>
+<div style="padding:32px 20px 48px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Visit</div><div style="font-family:var(--fd);font-weight:var(--fdw);font-size:30px;line-height:1.1">{{ address }}</div><div style="font-size:15px;line-height:1.6;color:var(--muted)">{{ directions }}</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><a href="#" style="border:1px solid var(--text);padding:14px;border-radius:99px;text-align:center;font-weight:600">Directions</a><a href="#" style="border:1px solid var(--text);padding:14px;border-radius:99px;text-align:center;font-weight:600">Call</a></div>
+<div style="display:flex;flex-direction:column"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:8px">Hours</div>
+<sc-for list="{{ hours }}" as="h" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid var(--line);font-size:14px"><span style="font-weight:600">{{ h.c }}</span><span style="color:var(--muted);text-align:right">{{ h.h }}</span></div></sc-for></div>
+<a href="#" style="background:#25D366;color:#0B2E17;padding:16px;border-radius:99px;text-align:center;font-weight:700;font-size:16px">WhatsApp {{ phone }}</a>
+</div>
+</div>
+</div>
+</div>
+<div id="3b" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center"><span style="background:#1E1B17;color:#FFFBF5;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px">3b</span><span style="font-size:13px;color:#6B6258">WhatsApp message previews · what the owner receives. Keys are sent as *bold*.</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;font-family:'Manrope',sans-serif">
+<div style="width:360px;background:#EFE7DD;box-shadow:0 30px 60px -30px #00000040">
+<div style="background:#1F2C33;color:#F1F1F1;padding:14px 16px;display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:99px;background:#B5532F;color:#FFFBF5;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px">M</span><div style="display:flex;flex-direction:column"><span style="font-size:15px;font-weight:600">{{ waName }}</span><span style="font-size:12px;color:#AEBAC1">Order · from website</span></div></div>
+<div style="padding:20px 14px 24px;display:flex;flex-direction:column;align-items:flex-end;min-height:420px;justify-content:flex-end">
+<div style="max-width:88%;background:#D9FDD3;color:#111B21;padding:10px 12px 6px;border-radius:8px 0 8px 8px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 1px #0000001a">
+<span>Hi {{ waName }}, I'd like to place an order.</span>
+<sc-if value="{{ hasOrder }}"><sc-for list="{{ order }}" as="g"><div style="display:flex;flex-direction:column"><strong>{{ g.g }}</strong><sc-for list="{{ g.items }}" as="it"><span>• {{ it }}</span></sc-for></div></sc-for></sc-if>
+<sc-if value="{{ noOrder }}"><span style="color:#667781">[Items from cart, grouped by concept]</span></sc-if>
+<span><strong>Subtotal:</strong> {{ orderSub }}<br><strong>Delivery:</strong> ₦2,500<br><strong>Total:</strong> {{ orderTotal }}</span>
+<span><strong>Delivery to:</strong> 5 Kusenla Rd, Ikate<br><strong>Name:</strong> Ada Okafor<br><strong>Phone:</strong> 0803 123 4567<br><strong>Note:</strong> Gate code 2201</span>
+<span style="font-size:11px;color:#667781;align-self:flex-end">8:42 pm ✓✓</span>
+</div>
+</div>
+</div>
+<div style="width:360px;background:#EFE7DD;box-shadow:0 30px 60px -30px #00000040">
+<div style="background:#1F2C33;color:#F1F1F1;padding:14px 16px;display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:99px;background:#B5532F;color:#FFFBF5;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px">M</span><div style="display:flex;flex-direction:column"><span style="font-size:15px;font-weight:600">{{ waName }}</span><span style="font-size:12px;color:#AEBAC1">Reservation · live from 3a</span></div></div>
+<div style="padding:20px 14px 24px;display:flex;flex-direction:column;align-items:flex-end;min-height:420px;justify-content:flex-end">
+<div style="max-width:88%;background:#D9FDD3;color:#111B21;padding:10px 12px 6px;border-radius:8px 0 8px 8px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 1px #0000001a">
+<span>Hi {{ waName }}, please save me a seat.</span>
+<div style="display:flex;flex-direction:column"><sc-for list="{{ resLines }}" as="l" hint-placeholder-count="6"><span><strong>{{ l.k }}:</strong> {{ l.v }}</span></sc-for></div>
+<span style="font-size:11px;color:#667781;align-self:flex-end">8:45 pm ✓✓</span>
+</div>
+</div>
+</div>
+<div style="width:360px;background:#EFE7DD;box-shadow:0 30px 60px -30px #00000040">
+<div style="background:#1F2C33;color:#F1F1F1;padding:14px 16px;display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:99px;background:#B5532F;color:#FFFBF5;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px">M</span><div style="display:flex;flex-direction:column"><span style="font-size:15px;font-weight:600">{{ waName }}</span><span style="font-size:12px;color:#AEBAC1">Cake request · live from 3a</span></div></div>
+<div style="padding:20px 14px 24px;display:flex;flex-direction:column;align-items:flex-end;min-height:420px;justify-content:flex-end;gap:6px">
+<div style="max-width:88%;background:#D9FDD3;color:#111B21;padding:10px 12px 6px;border-radius:8px 0 8px 8px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 1px #0000001a">
+<span>Hi {{ waName }}, I'd like to request a cake / bulk order.</span>
+<div style="display:flex;flex-direction:column"><sc-for list="{{ cakeLines }}" as="l" hint-placeholder-count="6"><span><strong>{{ l.k }}:</strong> {{ l.v }}</span></sc-for></div>
+<span>I'll send a reference picture next.</span>
+<span style="font-size:11px;color:#667781;align-self:flex-end">8:47 pm ✓✓</span>
+</div>
+<div style="width:180px;height:180px;border-radius:8px;background:repeating-linear-gradient(135deg,#00000014 0 1px,transparent 1px 9px) #D9FDD3;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:11px;color:#667781">reference photo</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;skin&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Maison Lekki&quot;,&quot;Napoleon&quot;],&quot;default&quot;:&quot;Maison Lekki&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const U = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w || 800}&q=70&auto=format&fit=crop`;
+const SK = {
+  ml: { '--bg':'#F7F2EA','--surface':'#FFFBF5','--text':'#1E1B17','--muted':'#6B6258','--accent':'#B5532F','--ink':'#FFFBF5','--line':'#E4DBCD','--fd':"'Fraunces',serif",'--fdw':'380','--rc':'2px' },
+  np: { '--bg':'#0E0D0B','--surface':'#1A1814','--text':'#F3EDE2','--muted':'#A69C8C','--accent':'#C9A24B','--ink':'#0E0D0B','--line':'#2E2A23','--fd':"'Cormorant Garamond',serif",'--fdw':'600','--rc':'0px' }
+};
+const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DATES = Array.from({ length:10 }, (_, i) => { const d = new Date(2026, 9, 22 + i); return { dow:DOW[d.getDay()], day:String(d.getDate()), full:`${DOW[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}` }; });
+const TIMES = ['12:30pm','1:30pm','6:00pm','7:00pm','8:00pm','8:30pm','9:30pm'], FULL = ['7:00pm'];
+const ROOMS = { ml:['The Restaurant','The Café','Garden'], np:['Restaurant','Café & Bakery','Outdoor'] };
+const TYPES = ['Cake','Tray','Pastry box'], SIZES = ['6" · serves 8','8" · serves 14','10" · serves 22','2-tier'];
+const FLAV = ['Red velvet','Chocolate fudge','Vanilla & berry','Coconut','Tiger nut carrot'], BUDG = ['₦25–50k','₦50–100k','₦100–200k','₦200k+'];
+const fmt = n => '₦' + n.toLocaleString('en-US');
+
+class Component extends DCLogic {
+  state = { date:2, time:4, guests:4, room:0, rName:'', rPhone:'', rNote:'', tried:false, sentR:false,
+    type:0, size:1, flav:0, budget:1, cDate:'Sat 31 Oct', cMsg:'Happy 30th, Tolu!', sentC:false, cap:{} };
+  skinRef = React.createRef();
+  k() { return (this.props.skin ?? 'Maison Lekki') === 'Napoleon' ? 'np' : 'ml'; }
+  componentDidMount() { this.apply(); }
+  componentDidUpdate() { this.apply(); }
+  apply() { const el = this.skinRef.current; if (!el) return; const v = SK[this.k()]; for (const p in v) el.style.setProperty(p, v[p]); }
+  chips(list, key, extra) {
+    return list.map((l, i) => { const on = this.state[key] === i, off = extra && extra(l);
+      return { label:l, bg:on ? 'var(--text)' : 'transparent', ink:on ? 'var(--bg)' : (off ? 'var(--muted)' : 'var(--text)'), bd:on ? 'var(--text)' : 'var(--line)', strike:off ? 'line-through' : 'none',
+        pick:() => { if (!off) this.setState({ [key]:i }); } }; });
+  }
+  renderVals() {
+    const s = this.state, k = this.k(), np = k === 'np', brand = np ? 'Napoleon' : 'Maison Lekki';
+    const set = key => e => this.setState({ [key]:e.target.value });
+    const nameErr = s.tried && !s.rName.trim();
+    const resLines = [
+      { k:'Date', v:DATES[s.date].full }, { k:'Time', v:TIMES[s.time] }, { k:'Guests', v:String(s.guests) }, { k:'Room', v:ROOMS[k][s.room] },
+      { k:'Name', v:s.rName || 'Ada Okafor' }, { k:'Phone', v:s.rPhone || '0803 123 4567' } ].concat(s.rNote ? [{ k:'Note', v:s.rNote }] : []);
+    const cakeLines = [
+      { k:'Type', v:TYPES[s.type] }, { k:'Date needed', v:s.cDate || '—' }, { k:'Size', v:SIZES[s.size] }, { k:'Flavour', v:FLAV[s.flav] },
+      { k:'Message on cake', v:s.cMsg ? `"${s.cMsg}"` : '—' }, { k:'Budget', v:BUDG[s.budget] } ];
+    const order = np ? [] : [
+      { g:'The Restaurant', items:['2 × Suya-spiced ribeye — ₦76,000'] },
+      { g:'The Bakery', items:['3 × Chin-chin croissant — ₦12,000', '1 × Honey plantain loaf — ₦7,000'] },
+      { g:'The Gelateria', items:['2 × Puff-puff gelato — ₦13,000'] } ];
+    const caps = np ? [ { a:'Restaurant', seated:'40', standing:'60' }, { a:'Café & Bakery', seated:'24', standing:'35' }, { a:'Outdoor', seated:'30', standing:'50' } ]
+      : [ { a:'The Restaurant', seated:'60', standing:'90' }, { a:'Garden', seated:'80', standing:'150' }, { a:'The Café (upstairs)', seated:'28', standing:'40' }, { a:'Whole house', seated:'—', standing:'300' } ];
+    const hours = np ? [ { c:'Restaurant', h:'12pm – 11pm daily' }, { c:'Café & Bakery', h:'8am – 8pm daily' }, { c:'Ice Cream', h:'12pm – 11pm daily' } ]
+      : [ { c:'The Restaurant', h:'12pm – 11pm · Sun till 10pm' }, { c:'The Café', h:'7am – 7pm daily' }, { c:'The Bakery', h:'7am – 6pm · closed Mon' }, { c:'The Gelateria', h:'11am – 10pm daily' } ];
+    return {
+      skinRef:this.skinRef, brand,
+      resImg:U('1414235077428-338989a2e8c0', 900),
+      dates:DATES.map((d, i) => ({ ...d, ...this.chips([d.day], 'date')[0], pick:() => this.setState({ date:i }),
+        bg:s.date === i ? 'var(--text)' : 'transparent', ink:s.date === i ? 'var(--bg)' : 'var(--text)', bd:s.date === i ? 'var(--text)' : 'var(--line)' })),
+      times:this.chips(TIMES, 'time', l => FULL.includes(l)), rooms:this.chips(ROOMS[k], 'room'),
+      guests:String(s.guests), gInc:() => this.setState({ guests:Math.min(20, s.guests + 1) }), gDec:() => this.setState({ guests:Math.max(1, s.guests - 1) }),
+      rName:s.rName, rPhone:s.rPhone, rNote:s.rNote, setRName:set('rName'), setRPhone:set('rPhone'), setRNote:set('rNote'),
+      nameErr, nameLine:nameErr ? '#B23A1E' : 'var(--line)',
+      submitRes:() => { if (!s.rName.trim()) return this.setState({ tried:true }); this.setState({ tried:false, sentR:true }); setTimeout(() => this.setState({ sentR:false }), 2400); },
+      resCta:s.sentR ? 'Opening WhatsApp…' : 'Send booking on WhatsApp',
+      cTypes:this.chips(TYPES, 'type'), cSizes:this.chips(SIZES, 'size'), cFlavours:this.chips(FLAV, 'flav'), cBudgets:this.chips(BUDG, 'budget'),
+      cDate:s.cDate, cMsg:s.cMsg, setCDate:set('cDate'), setCMsg:set('cMsg'),
+      submitCake:() => { this.setState({ sentC:true }); setTimeout(() => this.setState({ sentC:false }), 2400); },
+      cakeCta:s.sentC ? 'Opening WhatsApp…' : 'Send request on WhatsApp',
+      caps, hours,
+      occasions:['Birthday','Corporate','Engagement','Baby shower','Album launch','Something else'].map((l, i) => ({ label:l, on:[0, 2].includes(i) })),
+      ev1:U('1559339352-11d035aa65de', 900), ev2:U('1555396273-367ea4eb4db5', 600), ev3:U('1517248135467-4c7edcad34c4', 600),
+      address: np ? 'Osapa London, Lekki Phase 2, Lagos' : '14 Admiralty Way, Lekki Phase 1, Lagos',
+      directions: np ? 'Directions note: [confirm landmark with owner].' : 'Turn in at the Admiralty Way roundabout; we are two buildings past the pharmacy. Free parking in front, valet after 6pm.',
+      phone: np ? '+234 707 265 5465' : '+234 800 000 0000',
+      waName: brand, resLines, cakeLines, order, hasOrder:order.length > 0, noOrder:!order.length,
+      orderTotal:fmt(108000 + 2500), orderSub:fmt(108000)
+    };
+  }
+}
+</script>
+</body>
+</html>

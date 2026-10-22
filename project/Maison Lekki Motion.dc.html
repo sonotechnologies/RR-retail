@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E6E2DC;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}</style>
+</helmet>
+<section style="padding:80px;display:flex;flex-direction:column;gap:40px;font-family:'Manrope',sans-serif;color:#1E1B17">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6B6258">Round 2 · Motion prototype</div>
+<div style="font-family:'Fraunces',serif;font-size:48px;line-height:1">Hero, concept transition, add to cart</div>
+<div style="font-size:15px;color:#6B6258;max-width:70ch">Desktop timings. All motion uses cubic-bezier(0.22, 1, 0.36, 1). Turn on “Reduced motion” in Tweaks to see the fallback.</div>
+</div>
+<div id="5a" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center"><span style="background:#1E1B17;color:#FFFBF5;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px">5a</span><span style="font-size:13px;color:#6B6258">Motion · 1200 × 720 stage</span></div>
+<div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:8px;align-items:center">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><span onClick="{{ t.pick }}" style="cursor:pointer;padding:10px 18px;border-radius:99px;font-size:14px;font-weight:600;background:{{ t.bg }};color:{{ t.ink }};border:1px solid #1E1B17">{{ t.label }}</span></sc-for>
+<span onClick="{{ replay }}" style="cursor:pointer;margin-left:auto;padding:10px 18px;font-size:14px;font-weight:600;text-decoration:underline">↻ Replay</span>
+</div>
+<div ref="{{ stageRef }}" style="width:1200px;height:720px;position:relative;overflow:hidden;background:#F7F2EA;box-shadow:0 30px 60px -30px #00000040">
+<sc-if value="{{ s0 }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ heroRef }}" style="position:absolute;inset:0;background:#3a2f26 url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&amp;q=70&amp;auto=format&amp;fit=crop) center/cover"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,#00000040,#0000 30%,#000000a0)"></div>
+<div style="position:absolute;left:0;right:0;top:0;height:68px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;color:#FFFBF5;font-size:13px"><span style="letter-spacing:.12em;text-transform:uppercase">Kitchens</span><span style="font-family:'Fraunces',serif;font-size:24px">Maison Lekki</span><span style="background:#B5532F;padding:9px 16px;border-radius:99px;font-weight:600">Save me a seat</span></div>
+<div style="position:absolute;left:40px;bottom:56px;color:#FFFBF5;display:flex;flex-direction:column;gap:18px">
+<div style="overflow:hidden"><div ref="{{ l1Ref }}" style="font-family:'Fraunces',serif;font-weight:380;font-size:96px;line-height:1.02;letter-spacing:-.025em">Four kitchens.</div></div>
+<div style="overflow:hidden;margin-top:-18px"><div ref="{{ l2Ref }}" style="font-family:'Fraunces',serif;font-weight:380;font-size:96px;line-height:1.02;letter-spacing:-.025em">One address.</div></div>
+<div ref="{{ subRef }}" style="font-size:17px;opacity:.92">Dinner, coffee, fresh bakes and gelato in the heart of Lekki.</div>
+</div>
+<div ref="{{ curtainRef }}" style="position:absolute;inset:0;background:#B5532F;display:flex;align-items:center;justify-content:center">
+<div ref="{{ logoRef }}" style="font-family:'Fraunces',serif;font-size:64px;color:#FFFBF5;letter-spacing:-.02em">Maison Lekki</div>
+</div>
+</sc-if>
+<sc-if value="{{ s1 }}">
+<div style="padding:48px 40px 0;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end"><div style="font-family:'Fraunces',serif;font-weight:380;font-size:56px;line-height:1">Pick a room, any room.</div><span style="font-size:13px;color:#6B6258">Click a card</span></div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
+<div onClick="{{ c.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:14px">
+<div ref="{{ c.ref }}" style="height:380px;background:{{ c.tint }} url({{ c.src }}) center/cover;border-radius:2px"></div>
+<div style="display:flex;gap:12px;align-items:baseline;border-top:1px solid #E4DBCD;padding-top:12px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:{{ c.tint }}">{{ c.n }}</span><span style="font-family:'Fraunces',serif;font-size:26px">{{ c.name }}</span></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div ref="{{ revealRef }}" style="position:absolute;left:0;top:0;right:0;height:440px;background-size:cover;background-position:center;visibility:hidden;z-index:2"></div>
+<sc-if value="{{ hasPage }}">
+<div ref="{{ pageRef }}" style="position:absolute;left:0;right:0;top:440px;bottom:0;background:#F7F2EA;z-index:3;padding:36px 40px;display:grid;grid-template-columns:1fr 1fr;gap:48px">
+<div style="display:flex;flex-direction:column;gap:14px"><span style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:{{ pageTint }}">{{ pageNum }} · Maison Lekki</span><span style="font-family:'Fraunces',serif;font-weight:380;font-size:72px;line-height:1;letter-spacing:-.02em">{{ pageName }}</span></div>
+<div style="display:flex;flex-direction:column;gap:14px;padding-top:8px"><div style="display:flex;gap:28px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-bottom:1px solid #E4DBCD"><span style="padding-bottom:10px;border-bottom:2px solid #B5532F">Signatures</span><span style="color:#6B6258">Mains</span><span style="color:#6B6258">Drinks</span></div><div style="height:12px;width:80%;background:#E4DBCD"></div><div style="height:12px;width:60%;background:#E4DBCD"></div><span onClick="{{ back }}" style="cursor:pointer;margin-top:12px;align-self:flex-start;border:1px solid #1E1B17;padding:10px 18px;border-radius:99px;font-size:14px;font-weight:600">← Back to all kitchens</span></div>
+</div>
+</sc-if>
+</sc-if>
+<sc-if value="{{ s2 }}">
+<div style="height:68px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E4DBCD;font-size:14px"><span style="letter-spacing:.12em;text-transform:uppercase;font-size:13px">Kitchens</span><span style="font-family:'Fraunces',serif;font-size:24px">Maison Lekki</span><span ref="{{ cartRef }}" style="display:flex;gap:8px;align-items:center;font-weight:600">Cart <span ref="{{ countRef }}" style="min-width:24px;height:24px;border-radius:99px;background:#B5532F;color:#FFFBF5;display:flex;align-items:center;justify-content:center;font-size:12px">{{ count }}</span></span></div>
+<div style="padding:40px;display:flex;flex-direction:column;gap:28px">
+<div style="font-family:'Fraunces',serif;font-weight:380;font-size:48px;line-height:1">What everyone orders.</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+<sc-for list="{{ dishes }}" as="d" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div ref="{{ d.ref }}" style="height:340px;background:#E4DBCD url({{ d.src }}) center/cover;border-radius:2px"></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'Fraunces',serif;font-size:24px">{{ d.name }}</span><span style="font-weight:600">{{ d.price }}</span></div><span onClick="{{ d.add }}" style="cursor:pointer;padding:11px 18px;border-radius:99px;border:1px solid #1E1B17;font-size:14px;font-weight:600" style-hover="background:#1E1B17;color:#F7F2EA">Add +</span></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div ref="{{ flyRef }}" style="position:absolute;visibility:hidden;background-size:cover;background-position:center;z-index:5;pointer-events:none;transform-origin:center"></div>
+<sc-if value="{{ toast }}"><div ref="{{ toastRef }}" style="position:absolute;right:32px;top:84px;background:#1E1B17;color:#F7F2EA;padding:14px 18px;border-radius:2px;display:flex;gap:20px;font-size:14px;z-index:6"><span>Added to cart</span><span style="font-weight:700;text-decoration:underline">Undo</span></div></sc-if>
+</sc-if>
+</div>
+</div>
+<div style="width:380px;display:flex;flex-direction:column;gap:20px;padding-top:56px">
+<sc-for list="{{ notes }}" as="n" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid {{ n.line }}">
+<div style="display:flex;justify-content:space-between;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700"><span>{{ n.title }}</span><span style="color:#6B6258;font-weight:500">{{ n.dur }}</span></div>
+<sc-for list="{{ n.steps }}" as="st"><div style="display:grid;grid-template-columns:64px 1fr;gap:10px;font-size:13px;line-height:1.5"><span style="font-family:ui-monospace,monospace;color:#6B6258">{{ st.t }}</span><span>{{ st.d }}</span></div></sc-for>
+<div style="font-size:12px;line-height:1.5;color:#6B6258">Mobile: {{ n.mobile }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;reducedMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const E = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const U = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w || 800}&q=70&auto=format&fit=crop`;
+const CON = [
+  { n:'01', name:'The Restaurant', tint:'#B5532F', img:'1414235077428-338989a2e8c0' },
+  { n:'02', name:'The Café', tint:'#6F4E37', img:'1495474472287-4d71bcdd2085' },
+  { n:'03', name:'The Bakery', tint:'#D9A066', img:'1509440159596-0249088772ff' },
+  { n:'04', name:'The Gelateria', tint:'#E8A6A1', img:'1501443762994-82bd5dace89a' }
+];
+const DISH = [
+  { name:'Suya-spiced ribeye', price:'₦38,000', img:'1544025162-d76694265947' },
+  { name:'Chin-chin croissant', price:'₦4,000', img:'1555507036-ab1f4038808a' },
+  { name:'Puff-puff gelato', price:'₦6,500', img:'1488477181946-6428a0291777' }
+];
+const NOTES = [
+  { title:'Intro + hero', dur:'1.2s · once per session', mobile:'logo fade 300ms, hero scale 1.08 → 1, lines rise; no curtain.', steps:[
+    { t:'0–500', d:'Logo reveals left to right (clip-path inset)' }, { t:'450–1150', d:'Curtain wipes up; hero scales 1.08 → 1' },
+    { t:'700–1500', d:'Headline lines rise from 110%, 90ms stagger' }, { t:'900–1500', d:'Sub-line fades up 24px' } ] },
+  { title:'Concept transition', dur:'700ms', mobile:'View Transitions API morph where supported, 250ms fade otherwise.', steps:[
+    { t:'0–700', d:'Clicked card image expands to the next page hero (clip-path from card rect to full)' },
+    { t:'450–950', d:'Title and menu fade up 24px, staggered' }, { t:'Back', d:'Same path in reverse, 500ms' } ] },
+  { title:'Add to cart', dur:'650ms', mobile:'no flight; count bounce + toast only.', steps:[
+    { t:'0–650', d:'Thumbnail clone flies to cart, scales to 0.12' }, { t:'600–950', d:'Count bounces 1 → 1.35 → 1' },
+    { t:'650', d:'Toast slides up with Undo, auto-hides at 2.6s' } ] }
+];
+
+class Component extends DCLogic {
+  state = { scene:0, page:null, count:2, toast:false };
+  stageRef = React.createRef(); heroRef = React.createRef(); l1Ref = React.createRef(); l2Ref = React.createRef(); subRef = React.createRef();
+  curtainRef = React.createRef(); logoRef = React.createRef(); revealRef = React.createRef(); pageRef = React.createRef();
+  cardRefs = CON.map(() => React.createRef()); dishRefs = DISH.map(() => React.createRef()); flyRef = React.createRef(); cartRef = React.createRef(); countRef = React.createRef(); toastRef = React.createRef();
+  rm() { return !!this.props.reducedMotion; }
+  componentDidMount() { setTimeout(() => this.play(), 300); }
+  componentDidUpdate(pp, ps) { if (ps.scene !== this.state.scene || pp.reducedMotion !== this.props.reducedMotion) setTimeout(() => this.play(), 60); }
+  a(ref, kf, o) { const el = ref && ref.current; if (el) return el.animate(kf, { easing:E, fill:'both', ...o }); }
+  off(el) { let x = 0, y = 0; const st = this.stageRef.current; while (el && el !== st) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; }
+  play() {
+    if (this.state.scene !== 0) return;
+    if (this.rm()) {
+      this.a(this.curtainRef, [{ opacity:1 }, { opacity:0 }], { duration:400 });
+      [this.l1Ref, this.l2Ref, this.subRef].forEach((r, i) => this.a(r, [{ opacity:0 }, { opacity:1 }], { duration:400, delay:200 + i * 60 }));
+      this.a(this.heroRef, [{ transform:'none' }, { transform:'none' }], { duration:1 });
+      return;
+    }
+    this.a(this.logoRef, [{ clipPath:'inset(0 100% 0 0)' }, { clipPath:'inset(0 0% 0 0)' }], { duration:500 });
+    this.a(this.curtainRef, [{ transform:'translateY(0)' }, { transform:'translateY(-100%)' }], { duration:700, delay:450 });
+    this.a(this.heroRef, [{ transform:'scale(1.08)' }, { transform:'scale(1)' }], { duration:1200, delay:450 });
+    [this.l1Ref, this.l2Ref].forEach((r, i) => this.a(r, [{ transform:'translateY(110%)' }, { transform:'translateY(0)' }], { duration:800, delay:700 + i * 90 }));
+    this.a(this.subRef, [{ opacity:0, transform:'translateY(24px)' }, { opacity:.92, transform:'none' }], { duration:600, delay:900 });
+  }
+  openPage(i) {
+    const card = this.cardRefs[i].current, rv = this.revealRef.current, st = this.stageRef.current; if (!card || !rv) return;
+    const p = this.off(card), W = st.offsetWidth, H = 440;
+    rv.style.backgroundImage = `url(${U(CON[i].img, 1600)})`; rv.style.backgroundColor = CON[i].tint; rv.style.visibility = 'visible';
+    const from = `inset(${p.y}px ${W - p.x - card.offsetWidth}px ${H - p.y - card.offsetHeight}px ${p.x}px)`;
+    this.setState({ page:i }, () => {
+      if (this.rm()) { this.a(this.revealRef, [{ opacity:0, clipPath:'inset(0)' }, { opacity:1, clipPath:'inset(0)' }], { duration:250 }); this.a(this.pageRef, [{ opacity:0 }, { opacity:1 }], { duration:250 }); return; }
+      this.a(this.revealRef, [{ clipPath:from, opacity:1 }, { clipPath:'inset(0px 0px 0px 0px)', opacity:1 }], { duration:700 });
+      this.a(this.pageRef, [{ opacity:0, transform:'translateY(24px)' }, { opacity:1, transform:'none' }], { duration:500, delay:450 });
+    });
+    this.lastFrom = from;
+  }
+  back() {
+    const done = () => { if (this.revealRef.current) this.revealRef.current.style.visibility = 'hidden'; this.setState({ page:null }); };
+    if (this.rm() || !this.lastFrom) return done();
+    this.a(this.pageRef, [{ opacity:1 }, { opacity:0 }], { duration:200 });
+    const an = this.a(this.revealRef, [{ clipPath:'inset(0px 0px 0px 0px)' }, { clipPath:this.lastFrom }], { duration:500 });
+    if (an) an.onfinish = done; else done();
+  }
+  addDish(i) {
+    const img = this.dishRefs[i].current, fly = this.flyRef.current, cart = this.cartRef.current;
+    const bump = () => { this.setState(s => ({ count:s.count + 1, toast:true })); this.a(this.countRef, [{ transform:'scale(1)' }, { transform:'scale(1.35)' }, { transform:'scale(1)' }], { duration:350, easing:'ease-out' });
+      setTimeout(() => this.a(this.toastRef, [{ opacity:0, transform:'translateY(16px)' }, { opacity:1, transform:'none' }], { duration:400 }), 0);
+      clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast:false }), 2600); };
+    if (this.rm() || !img || !fly || !cart) return bump();
+    const a = this.off(img), b = this.off(cart);
+    Object.assign(fly.style, { left:a.x + 'px', top:a.y + 'px', width:img.offsetWidth + 'px', height:img.offsetHeight + 'px', backgroundImage:`url(${U(DISH[i].img, 400)})`, visibility:'visible' });
+    const dx = b.x + cart.offsetWidth / 2 - (a.x + img.offsetWidth / 2), dy = b.y + cart.offsetHeight / 2 - (a.y + img.offsetHeight / 2);
+    const an = fly.animate([{ transform:'translate(0,0) scale(1)', opacity:1, borderRadius:'2px' }, { transform:`translate(${dx}px,${dy}px) scale(.12)`, opacity:.7, borderRadius:'50%' }], { duration:650, easing:'cubic-bezier(0.5, 0, 0.2, 1)', fill:'forwards' });
+    an.onfinish = () => { fly.style.visibility = 'hidden'; an.cancel(); bump(); };
+  }
+  renderVals() {
+    const s = this.state, labels = ['Intro + hero', 'Concept transition', 'Add to cart'];
+    const pg = s.page !== null ? CON[s.page] : null;
+    return {
+      stageRef:this.stageRef, heroRef:this.heroRef, l1Ref:this.l1Ref, l2Ref:this.l2Ref, subRef:this.subRef, curtainRef:this.curtainRef, logoRef:this.logoRef,
+      revealRef:this.revealRef, pageRef:this.pageRef, flyRef:this.flyRef, cartRef:this.cartRef, countRef:this.countRef, toastRef:this.toastRef,
+      tabs:labels.map((l, i) => ({ label:l, bg:s.scene === i ? '#1E1B17' : 'transparent', ink:s.scene === i ? '#FFFBF5' : '#1E1B17', pick:() => this.setState({ scene:i, page:null, toast:false }) })),
+      replay:() => { if (s.scene === 0) this.play(); else if (s.scene === 1) { if (s.page !== null) this.back(); } else this.setState({ count:2, toast:false }); },
+      s0:s.scene === 0, s1:s.scene === 1, s2:s.scene === 2,
+      cards:CON.map((c, i) => ({ ...c, src:U(c.img, 600), ref:this.cardRefs[i], open:() => this.openPage(i) })),
+      hasPage:!!pg, pageName:pg ? pg.name : '', pageNum:pg ? pg.n : '', pageTint:pg ? pg.tint : 'transparent', back:() => this.back(),
+      dishes:DISH.map((d, i) => ({ ...d, src:U(d.img, 500), ref:this.dishRefs[i], add:() => this.addDish(i) })),
+      count:String(s.count), toast:s.toast,
+      notes:NOTES.map((n, i) => ({ ...n, line:i === s.scene ? '#1E1B17' : '#CFC7BB' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
