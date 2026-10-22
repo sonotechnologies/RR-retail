@@ -1,4 +1,4 @@
-import type { SkinInput } from '../schema';
+import type { FoodSkinInput } from '../schema';
 
 // PRIVATE PITCH SKIN. Photos below are Unsplash stand-ins: replace with Napoleon's own interior and
 // food photos / TikTok stills (public/skins/napoleon/...) before sending the preview link.
@@ -20,12 +20,12 @@ export const IMG = {
 };
 
 // [Hours not confirmed: taken from the design round. Check with the owner.]
-const daily = (open: string, close: string): SkinInput['concepts'][number]['hours'] => {
+const daily = (open: string, close: string): FoodSkinInput['concepts'][number]['hours'] => {
   const h: [string, string] = [open, close];
   return { mon: h, tue: h, wed: h, thu: h, fri: h, sat: h, sun: h };
 };
 
-const config: SkinInput = {
+const config: FoodSkinInput = {
   id: 'napoleon',
   brand: {
     name: 'Napoleon',

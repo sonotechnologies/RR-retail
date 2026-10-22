@@ -5,13 +5,16 @@ import { Signatures } from '@/components/sections/Signatures';
 import { Social } from '@/components/sections/Social';
 import { Space } from '@/components/sections/Space';
 import { VisitBlock } from '@/components/sections/VisitBlock';
+import { StoreHome } from '@/components/store/StoreHome';
 import { getMenu } from '@/lib/menu';
+import { getProducts } from '@/lib/products';
 import { getSkin } from '@/lib/skin';
 
 export const revalidate = 300;
 
 export default async function Home() {
   const skin = getSkin();
+  if (skin.mode === 'store') return <StoreHome skin={skin} products={await getProducts()} />;
   const menu = await getMenu();
   const signatures = menu.filter((m) => m.featured).slice(0, 6);
   return (

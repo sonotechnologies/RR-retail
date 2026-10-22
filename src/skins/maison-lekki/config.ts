@@ -1,4 +1,4 @@
-import type { SkinInput } from '../schema';
+import type { FoodSkinInput } from '../schema';
 
 // Photography: Unsplash (https://unsplash.com/license). Swap for the client's own photos per skin.
 export const img = (id: string, w = 1600) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&q=70&w=${w}`;
@@ -21,7 +21,7 @@ export const IMG = {
   bowl: img('1546069901-ba9599a7e63c'),
 };
 
-const config: SkinInput = {
+const config: FoodSkinInput = {
   id: 'maison-lekki',
   brand: {
     name: 'Maison Lekki',

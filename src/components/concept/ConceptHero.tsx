@@ -5,10 +5,10 @@ import { OpenBadge } from '@/components/ui/OpenBadge';
 import { Photo } from '@/components/ui/Photo';
 import { inkOn } from '@/lib/format';
 import { getStatus } from '@/lib/hours';
-import type { Concept, Skin } from '@/skins/schema';
+import type { Concept, FoodSkin } from '@/skins/schema';
 
 /** Hero in the concept's tint and photo: name, tagline, hours, "Reserve this room". */
-export function ConceptHero({ skin, concept: c, reserveSection }: { skin: Skin; concept: Concept; reserveSection?: string }) {
+export function ConceptHero({ skin, concept: c, reserveSection }: { skin: FoodSkin; concept: Concept; reserveSection?: string }) {
   const tint = c.tint ?? skin.theme.colors.accent;
   const ink = inkOn(tint);
   const btnInk = ink === '#1E1B17' ? 'bg-coal text-paper' : 'bg-paper text-coal';

@@ -1,6 +1,7 @@
 // WhatsApp message builders. Every submit ends in https://wa.me/<number>?text=<encoded>.
 import { formatNaira } from './format.ts';
 import { formatTime } from './hours.ts';
+import { MIXED, lineTotal, linePieces, variantLabel, type BagLine } from './store.ts';
 
 const SEP = '  ·  ';
 
@@ -121,5 +122,111 @@ export function buildEventMessage(e: {
     `Budget: ${e.budget}`,
     line(['Name', e.name], ['Phone', e.phone]),
     e.details?.trim() ? `Details: ${e.details.trim()}` : undefined,
+  ]);
+}
+
+// ---------- Store mode ----------
+
+
+export type StoreOrderLine = Pick<BagLine, 'slug' | 'name' | 'mode' | 'size' | 'colour' | 'qty' | 'unitPrice' | 'min'>;
+export type Fulfilment = 'pickup' | 'lagos' | 'waybill';
+
+export const productUrl = (siteUrl: string, slug: string) => `${siteUrl.replace(/\/$/, '')}/p/${slug}`;
+
+const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
+
+function orderLine(l: StoreOrderLine, siteUrl: string): string {
+  const head =
+    l.mode === 'wholesale'
+      ? `${plural(l.qty, 'bundle')} (${linePieces(l)} pcs) × ${l.name}`
+      : `${l.qty} × ${l.name}`;
+  return `${head} — ${variantLabel(l.size, l.colour)} — ${formatNaira(lineTotal(l))}\n${productUrl(siteUrl, l.slug)}`;
+}
+
+/** Retail, wholesale or mixed bag → one message (mixed bags get two labelled sections). */
+export function buildStoreOrderMessage(o: {
+  brand: string;
+  siteUrl: string;
+  lines: StoreOrderLine[];
+  fulfilment: Fulfilment;
+  pickupHours?: string;
+  address?: string;
+  name: string;
+  phone: string;
+  note?: string;
+}): string {
+  const retail = o.lines.filter((l) => l.mode === 'retail');
+  const wholesale = o.lines.filter((l) => l.mode === 'wholesale');
+  const total = o.lines.reduce((a, l) => a + lineTotal(l), 0);
+  const pieces = o.lines.reduce((a, l) => a + linePieces(l), 0);
+  const list = (ls: StoreOrderLine[]) => ls.map((l) => orderLine(l, o.siteUrl)).join('\n');
+  const address = o.address?.trim() || '—';
+
+  const title = !wholesale.length
+    ? `New order — ${o.brand} (Retail)`
+    : !retail.length
+      ? `New WHOLESALE order — ${o.brand}`
+      : `New order — ${o.brand} (Retail + Wholesale)`;
+  const body = retail.length && wholesale.length ? `RETAIL\n${list(retail)}\n\nWHOLESALE\n${list(wholesale)}` : list(o.lines);
+  const option =
+    o.fulfilment === 'pickup'
+      ? `Option: Pickup${o.pickupHours ? ` (${o.pickupHours})` : ''}`
+      : o.fulfilment === 'lagos'
+        ? 'Option: Lagos delivery (fee to be confirmed)'
+        : `Option: Waybill to ${address} (fee to be confirmed)`;
+
+  return join([
+    title,
+    '',
+    body,
+    '',
+    wholesale.length ? `Total: ${plural(pieces, 'piece')} · ${formatNaira(total)}` : `Subtotal: ${formatNaira(total)}`,
+    option,
+    `Name: ${o.name.trim()} · Phone: ${o.phone.trim()}`,
+    o.fulfilment === 'lagos' ? `Address: ${address}` : undefined,
+    `Note: ${o.note?.trim() || '—'}`,
+  ]);
+}
+
+/** "Ask on WhatsApp" from a product page. */
+export function buildProductQuestion(q: {
+  shortName: string;
+  name: string;
+  url: string;
+  mode: 'retail' | 'wholesale';
+  inStock: boolean;
+  size?: string | null;
+  colour?: string | null;
+  wholesalePrice?: number | null;
+  wholesaleMin?: number;
+}): string {
+  if (!q.inStock) return `Hi ${q.shortName}, when will the ${q.name} be back in stock? ${q.url}`;
+  if (q.mode === 'wholesale') {
+    const price = q.wholesalePrice ? ` at ${formatNaira(q.wholesalePrice)}/pc` : '';
+    return `Hi ${q.shortName}, is the ${q.name} available for wholesale (bundle of ${q.wholesaleMin} pcs${price})? ${q.url}`;
+  }
+  const variant = [q.size && q.size !== MIXED ? q.size : null, q.colour && q.colour !== MIXED ? q.colour : null].filter(Boolean).join(', ');
+  return `Hi ${q.shortName}, is the ${q.name} available${variant ? ` in ${variant}` : ''}? ${q.url}`;
+}
+
+/** "Request a custom mix" form on /wholesale. */
+export function buildCustomMixMessage(m: {
+  shortName: string;
+  siteUrl: string;
+  items: Array<{ slug: string; name: string; pieces: number }>;
+  name?: string;
+  phone?: string;
+}): string {
+  const items = m.items.filter((i) => i.pieces > 0);
+  const total = items.reduce((a, i) => a + i.pieces, 0);
+  const who = [m.name?.trim() && `Name: ${m.name.trim()}`, m.phone?.trim() && `Phone: ${m.phone.trim()}`].filter(Boolean).join(' · ');
+  return join([
+    `Hi ${m.shortName}, I'd like a custom wholesale mix:`,
+    '',
+    items.map((i, n) => `${n + 1}. ${i.name} — ${i.pieces} pcs\n   ${productUrl(m.siteUrl, i.slug)}`).join('\n'),
+    '',
+    `Total: ${plural(total, 'piece')}`,
+    who || undefined,
+    "Please confirm prices and what's in stock.",
   ]);
 }

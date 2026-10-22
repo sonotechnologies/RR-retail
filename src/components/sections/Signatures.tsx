@@ -5,10 +5,10 @@ import { Photo } from '@/components/ui/Photo';
 import { SectionHead } from '@/components/ui/SectionHead';
 import { formatNaira } from '@/lib/format';
 import { itemId } from '@/lib/menu';
-import type { MenuItem, Skin } from '@/skins/schema';
+import type { MenuItem, FoodSkin } from '@/skins/schema';
 
 /** Featured menu items (featured = TRUE in the sheet), across all concepts. */
-export function Signatures({ skin, items }: { skin: Skin; items: MenuItem[] }) {
+export function Signatures({ skin, items }: { skin: FoodSkin; items: MenuItem[] }) {
   if (!items.length) return null;
   const concepts = new Map(skin.concepts.map((c) => [c.slug, c]));
   return (

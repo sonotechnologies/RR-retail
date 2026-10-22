@@ -6,13 +6,13 @@ import { Reveal } from '@/components/motion/Reveal';
 import { Counter } from '@/components/ui/Counter';
 import { Photo } from '@/components/ui/Photo';
 import { lagosToday } from '@/lib/dates';
-import { getSkin } from '@/lib/skin';
+import { getFoodSkin } from '@/lib/skin';
 
 export const revalidate = 300;
 export const metadata: Metadata = { title: 'Events & private hire', alternates: { canonical: '/events' } };
 
 export default function EventsPage() {
-  const skin = getSkin();
+  const skin = getFoodSkin();
   if (!skin.features.events) notFound();
   const { spaces, occasions, budgets } = skin.events;
   const imgs = spaces.map((s) => s.image).slice(0, 3);

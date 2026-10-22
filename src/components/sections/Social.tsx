@@ -1,10 +1,10 @@
 import { SectionHead } from '@/components/ui/SectionHead';
 import { socialHandle } from '@/lib/site';
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 import { VideoTile } from './VideoTile';
 
 /** Seen on TikTok: curated vertical video posters in a scroll row; embeds load on tap. */
-export function Social({ skin }: { skin: Skin }) {
+export function Social({ skin }: { skin: FoodSkin }) {
   if (!skin.features.socialEmbeds || !skin.socialEmbeds.length) return null;
   const tiktok = skin.contact.socials.tiktok;
   const platform = skin.socialEmbeds.every((e) => e.platform === 'instagram') ? 'Instagram' : 'TikTok';

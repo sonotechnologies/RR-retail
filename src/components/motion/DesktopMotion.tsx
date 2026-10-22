@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { useCart } from '@/components/cart/store';
+import { useBag } from '@/components/store/bag';
 import { useMotionTier } from './tier';
 
 type Mod = typeof import('./desktop');
@@ -12,7 +13,8 @@ export function DesktopMotion() {
   const { desktop, reduced } = useMotionTier();
   const pathname = usePathname();
   const mod = useRef<Mod | null>(null);
-  const cartOpen = useCart((s) => s.open);
+  const bagOpen = useBag((s) => s.open);
+  const cartOpen = useCart((s) => s.open) || bagOpen;
 
   useEffect(() => {
     if (!desktop || reduced) return;

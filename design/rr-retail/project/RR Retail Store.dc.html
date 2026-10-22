@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#080706;font-family:Manrope,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#D29A7E;text-decoration:none}a:hover{color:#F5EFE9}
+input,select,textarea,button{font-family:Manrope,sans-serif}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px 12px;box-sizing:border-box">
+  <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#5C5650;letter-spacing:.08em">RR RETAIL · STORE MODE · MOBILE 390</div>
+  <div style="position:relative;width:390px;max-width:100%;height:844px;max-height:calc(100vh - 70px);min-height:600px;background:#0F0E0D;border-radius:28px;overflow:hidden;box-shadow:0 0 0 1px #2D2926,0 30px 80px rgba(0,0,0,.6);color:#F5EFE9">
+
+    <div ref="{{ scrollRef }}" style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:84px;scrollbar-width:none">
+
+      <div style="position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(15,14,13,.94);backdrop-filter:blur(8px);border-bottom:1px solid #2D2926">
+        <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <div style="width:36px;height:36px;border-radius:8px;background:#000;border:1px solid #2D2926;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:#D29A7E;letter-spacing:-.04em">RR</div>
+          <div style="display:flex;flex-direction:column;line-height:1.1">
+            <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">RR Retail</span>
+            <span style="font-size:10px;color:#A89F96;letter-spacing:.12em;font-weight:600">LAGOS · RETAIL & WHOLESALE</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:4px">
+          <button onClick="{{ goShop }}" style="width:44px;height:44px;border:0;background:none;color:#F5EFE9;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></button>
+          <button onClick="{{ openBag }}" style="position:relative;width:44px;height:44px;border:0;background:none;color:#F5EFE9;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"></path></svg>
+            <sc-if value="{{ hasBag }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:5px;right:4px;min-width:18px;height:18px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-sizing:border-box;transition:transform .2s;transform:{{ bumpTransform }}">{{ bagCount }}</span></sc-if>
+          </button>
+        </div>
+      </div>
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)">
+          <img src="{{ heroImg }}" alt="RR rack" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,14,13,0) 35%,rgba(15,14,13,.95) 100%)"></div>
+          <div style="position:absolute;left:18px;right:18px;bottom:22px;display:flex;flex-direction:column;gap:12px">
+            <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:44px;line-height:.98;letter-spacing:-.01em;text-wrap:balance">Rack it. Restock it. Rock it.</h1>
+            <p style="margin:0;font-size:15px;color:#F5EFE9;font-weight:500">Affordable fashion in Lagos. Retail and wholesale.</p>
+            <div style="display:flex;gap:10px;margin-top:4px">
+              <button onClick="{{ goShop }}" style="flex:1;height:48px;border-radius:999px;border:0;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:15px;cursor:pointer">Shop now</button>
+              <button onClick="{{ goWholesale }}" style="flex:1;height:48px;border-radius:999px;border:1px solid #F5EFE9;background:transparent;color:#F5EFE9;font-weight:700;font-size:15px;cursor:pointer">Buy wholesale</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;overflow-x:auto;padding:12px 16px;border-bottom:1px solid #2D2926;scrollbar-width:none;font-size:12px;font-weight:600;color:#A89F96;white-space:nowrap">
+          <span>Pickup open 12pm – 4pm</span><span style="color:#5C5650">·</span><span>WhatsApp 0904 786 8240</span><span style="color:#5C5650">·</span><span>Waybill nationwide</span>
+        </div>
+
+        <div style="padding:26px 0 0">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 12px">
+            <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px">Just restocked</h2>
+            <span onClick="{{ goShop }}" style="font-size:13px;font-weight:700;color:#D29A7E;cursor:pointer">See all</span>
+          </div>
+          <div style="display:flex;gap:10px;overflow-x:auto;padding:0 16px;scroll-snap-type:x mandatory;scrollbar-width:none">
+            <sc-for list="{{ restocked }}" as="c" hint-placeholder-count="3">
+              <div onClick="{{ c.open }}" style="flex:0 0 140px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;cursor:pointer">
+                <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)">
+                  <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                  <span style="position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;background:{{ c.badgeBg }};color:{{ c.badgeFg }}">{{ c.badge }}</span>
+                </div>
+                <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</div>
+                <div style="font-size:17px;font-weight:800;margin-top:-4px">{{ c.price }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:30px 16px 0">
+          <h2 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px">Shop by category</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <sc-for list="{{ catTiles }}" as="t" hint-placeholder-count="5">
+              <div onClick="{{ t.open }}" style="position:relative;aspect-ratio:{{ t.ratio }};grid-column:{{ t.span }};border-radius:10px;overflow:hidden;cursor:pointer;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)" style-active="transform:scale(.98)">
+                <img src="{{ t.img }}" alt="{{ t.label }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,14,13,.9))"></div>
+                <span style="position:absolute;left:12px;bottom:10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px">{{ t.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:30px 16px 0">
+          <h2 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px">Best sellers</h2>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 10px">
+            <sc-for list="{{ bestSellers }}" as="c" hint-placeholder-count="6">
+              <div onClick="{{ c.open }}" style="display:flex;flex-direction:column;gap:4px;cursor:pointer;min-width:0">
+                <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);margin-bottom:4px">
+                  <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                  <sc-if value="{{ c.hasBadge }}"><span style="position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;background:{{ c.badgeBg }};color:{{ c.badgeFg }}">{{ c.badge }}</span></sc-if>
+                  <sc-if value="{{ c.soldOut }}"><div style="position:absolute;inset:0;background:rgba(15,14,13,.65);display:flex;align-items:center;justify-content:center"><span style="padding:5px 12px;border-radius:999px;background:#5C5650;color:#F5EFE9;font-size:11px;font-weight:800">Sold out</span></div></sc-if>
+                </div>
+                <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:{{ c.nameColor }}">{{ c.name }}</div>
+                <div style="font-size:18px;font-weight:800;color:{{ c.nameColor }}">{{ c.price }}</div>
+                <div style="font-size:11px;font-weight:600;color:#D29A7E">Wholesale from {{ c.ws }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="margin:34px 16px 0;padding:20px;border-radius:10px;background:#1B1917;border:1px solid #2D2926">
+          <h2 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px">How to order</h2>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:12px;align-items:center"><span style="flex:0 0 32px;height:32px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;display:flex;align-items:center;justify-content:center">1</span><div><div style="font-weight:700;font-size:15px">Add to bag</div><div style="font-size:13px;color:#A89F96">Pick size, colour, retail or bundle.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:center"><span style="flex:0 0 32px;height:32px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;display:flex;align-items:center;justify-content:center">2</span><div><div style="font-weight:700;font-size:15px">Send on WhatsApp</div><div style="font-size:13px;color:#A89F96">Your full order goes to us in one message.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:center"><span style="flex:0 0 32px;height:32px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;display:flex;align-items:center;justify-content:center">3</span><div><div style="font-weight:700;font-size:15px">Pick up or get it delivered</div><div style="font-size:13px;color:#A89F96">Pickup station, Lagos delivery or waybill.</div></div></div>
+          </div>
+        </div>
+
+        <div onClick="{{ goWholesale }}" style="margin:14px 16px 0;padding:22px 20px;border-radius:10px;background:#D29A7E;color:#0F0E0D;cursor:pointer;display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11px;font-weight:800;letter-spacing:.14em">WHOLESALE</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;line-height:1">Buying for your shop? Bundle prices start here.</span>
+          <span style="align-self:flex-start;margin-top:4px;padding:10px 18px;border-radius:999px;background:#0F0E0D;color:#F5EFE9;font-weight:700;font-size:14px">See bundle prices →</span>
+        </div>
+
+        <div style="margin:14px 16px 0;padding:20px;border-radius:10px;background:#1B1917;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <span style="flex:0 0 44px;height:44px;border-radius:999px;background:#229ED9;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M21 4L2.8 11.1c-1 .4-1 1.6 0 1.9l4.6 1.5 1.7 5.3c.2.7 1.1.9 1.6.4l2.6-2.5 4.7 3.5c.6.4 1.4.1 1.6-.6L22.3 5.2c.2-.9-.6-1.6-1.3-1.2z"></path></svg></span>
+            <span style="font-size:16px;font-weight:700;line-height:1.3">New stock drops daily on our Telegram. Don't miss am.</span>
+          </div>
+          <a href="https://t.me/" target="_blank" style="height:48px;border-radius:999px;background:#229ED9;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">Join the Telegram channel</a>
+        </div>
+
+        <div style="padding:30px 16px 0">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+            <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px">Seen on TikTok</h2>
+            <a href="https://www.tiktok.com/@rr.retail.stores" target="_blank" style="font-size:13px;font-weight:700">@rr.retail.stores</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px">
+            <sc-for list="{{ tiktoks }}" as="v" hint-placeholder-count="6">
+              <div style="position:relative;aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)">
+                <img src="{{ v.img }}" alt="TikTok video" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                <span style="position:absolute;top:50%;left:50%;width:0;height:0;margin:-8px 0 0 -5px;border-left:14px solid rgba(245,239,233,.85);border-top:8px solid transparent;border-bottom:8px solid transparent"></span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:#A89F96;margin:20px 0 10px">What customers send us</div>
+          <div style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none">
+            <sc-for list="{{ chats }}" as="v" hint-placeholder-count="3">
+              <div style="flex:0 0 150px;aspect-ratio:9/16;border-radius:10px;border:1px solid #2D2926;background:repeating-linear-gradient(135deg,#141210 0 8px,#191715 8px 16px);display:flex;align-items:flex-end;padding:8px;box-sizing:border-box;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#A89F96">chat screenshot {{ v.n }}</div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="margin:30px 16px 0;border-radius:10px;overflow:hidden;background:#1B1917;border:1px solid #2D2926">
+          <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#24201D 8px 16px);display:flex;align-items:flex-end;padding:10px;box-sizing:border-box;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#A89F96">map · pickup station</div>
+          <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#D29A7E">PICKUP STATION</span>
+            <span style="font-size:16px;font-weight:700">[Pickup address, Lagos]</span>
+            <span style="font-size:14px;color:#A89F96">Open 12pm – 4pm · Look for the red building</span>
+            <button onClick="{{ goPickup }}" style="margin-top:8px;align-self:flex-start;height:44px;padding:0 20px;border-radius:999px;border:1px solid #F5EFE9;background:none;color:#F5EFE9;font-weight:700;font-size:14px;cursor:pointer">Get directions</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:18px 16px 0">
+          <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px">{{ shopTitle }}</h1>
+          <div style="font-size:13px;color:#A89F96;font-weight:600;margin-top:2px">{{ shopCount }}</div>
+        </div>
+        <div style="display:flex;gap:8px;overflow-x:auto;padding:14px 16px 4px;scrollbar-width:none">
+          <sc-for list="{{ catChips }}" as="ch" hint-placeholder-count="6">
+            <button onClick="{{ ch.onClick }}" style="flex:0 0 auto;height:36px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;background:{{ ch.bg }};color:{{ ch.fg }};border:1px solid {{ ch.border }}">{{ ch.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;overflow-x:auto;padding:6px 16px 16px;scrollbar-width:none;align-items:center">
+          <sc-for list="{{ filterChips }}" as="ch" hint-placeholder-count="3">
+            <button onClick="{{ ch.onClick }}" style="flex:0 0 auto;height:32px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;background:{{ ch.bg }};color:{{ ch.fg }};border:1px solid {{ ch.border }}">{{ ch.label }}</button>
+          </sc-for>
+        </div>
+        <div style="padding:0 16px">
+          <sc-if value="{{ shopEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:40px 0;text-align:center;color:#A89F96;font-size:14px">Nothing matches. Try removing a filter.</div>
+          </sc-if>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 10px">
+            <sc-for list="{{ shopCards }}" as="c" hint-placeholder-count="6">
+              <div onClick="{{ c.open }}" style="display:flex;flex-direction:column;gap:4px;cursor:pointer;min-width:0">
+                <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);margin-bottom:4px">
+                  <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                  <sc-if value="{{ c.hasBadge }}"><span style="position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;background:{{ c.badgeBg }};color:{{ c.badgeFg }}">{{ c.badge }}</span></sc-if>
+                  <sc-if value="{{ c.soldOut }}"><div style="position:absolute;inset:0;background:rgba(15,14,13,.65);display:flex;align-items:center;justify-content:center"><span style="padding:5px 12px;border-radius:999px;background:#5C5650;color:#F5EFE9;font-size:11px;font-weight:800">Sold out</span></div></sc-if>
+                  <sc-if value="{{ c.inBag }}"><span style="position:absolute;top:8px;right:8px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;background:#F5EFE9;color:#0F0E0D">In bag</span></sc-if>
+                </div>
+                <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:{{ c.nameColor }}">{{ c.name }}</div>
+                <div style="font-size:18px;font-weight:800;color:{{ c.nameColor }}">{{ c.price }}</div>
+                <div style="font-size:11px;font-weight:600;color:#D29A7E">Wholesale from {{ c.ws }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative">
+          <div style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
+            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
+              <div style="flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/5;position:relative;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)">
+                <img src="{{ g.img }}" alt="{{ g.label }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                <span style="position:absolute;right:14px;bottom:14px;padding:4px 10px;border-radius:999px;background:rgba(15,14,13,.7);font-size:11px;font-weight:700">{{ g.n }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ goBack }}" style="position:absolute;top:12px;left:12px;width:44px;height:44px;border-radius:999px;border:0;background:rgba(15,14,13,.75);color:#F5EFE9;font-size:20px;cursor:pointer">←</button>
+        </div>
+        <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-if value="{{ pd.hasBadge }}"><span style="align-self:flex-start;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800;background:{{ pd.badgeBg }};color:{{ pd.badgeFg }}">{{ pd.badge }}</span></sc-if>
+            <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.05">{{ pd.name }}</h1>
+          </div>
+
+          <div style="display:flex;padding:4px;border-radius:999px;background:#1B1917;border:1px solid #2D2926">
+            <button onClick="{{ setRetail }}" style="flex:1;height:40px;border-radius:999px;border:0;font-weight:800;font-size:14px;cursor:pointer;transition:background .2s;background:{{ retailBg }};color:{{ retailFg }}">Retail</button>
+            <button onClick="{{ setWholesale }}" style="flex:1;height:40px;border-radius:999px;border:0;font-weight:800;font-size:14px;cursor:pointer;transition:background .2s;background:{{ wsBg }};color:{{ wsFg }}">Wholesale</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:38px;font-weight:800;letter-spacing:-.02em;line-height:1">{{ priceBig }}</span><span style="font-size:15px;font-weight:700;color:#A89F96">{{ priceUnit }}</span></div>
+            <div style="font-size:14px;font-weight:700;color:#D29A7E">{{ priceSub }}</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:13px;font-weight:700;color:#A89F96">Colour · <span style="color:#F5EFE9">{{ colorName }}</span></div>
+            <div style="display:flex;gap:10px">
+              <sc-for list="{{ swatches }}" as="s" hint-placeholder-count="3">
+                <button onClick="{{ s.onClick }}" title="{{ s.name }}" style="width:44px;height:44px;border-radius:999px;cursor:pointer;padding:0;background:{{ s.hex }};border:2px solid #0F0E0D;box-shadow:0 0 0 2px {{ s.ring }}"></button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:13px;font-weight:700;color:#A89F96">Size</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ sizeChips }}" as="s" hint-placeholder-count="4">
+                <button onClick="{{ s.onClick }}" style="min-width:52px;height:44px;padding:0 14px;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.border }};text-decoration:{{ s.deco }}">{{ s.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ isWsMode }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px;color:#A89F96">Want mixed sizes or colours? <span onClick="{{ goWholesale }}" style="color:#D29A7E;font-weight:700;cursor:pointer">Request a custom mix</span></div>
+            </sc-if>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div style="display:flex;align-items:center;border:1px solid #2D2926;border-radius:999px;background:#1B1917">
+              <button onClick="{{ dec }}" style="width:44px;height:44px;border:0;background:none;font-size:20px;cursor:pointer;color:{{ decColor }}">−</button>
+              <span style="min-width:34px;text-align:center;font-weight:800;font-size:16px">{{ qty }}</span>
+              <button onClick="{{ inc }}" style="width:44px;height:44px;border:0;background:none;font-size:20px;cursor:pointer;color:{{ incColor }}">+</button>
+            </div>
+            <div style="text-align:right;display:flex;flex-direction:column">
+              <span style="font-size:12px;font-weight:600;color:#A89F96">{{ qtyLabel }}</span>
+              <span style="font-size:20px;font-weight:800">{{ lineTotal }}</span>
+            </div>
+          </div>
+
+          <sc-if value="{{ needSize }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;font-weight:700;color:#E2574C;margin-top:-6px">Pick a size first.</div></sc-if>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-if value="{{ pdAvailable }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ addToBag }}" style="height:54px;border-radius:999px;border:0;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:16px;cursor:pointer" style-active="transform:scale(.98)">Add to bag · {{ lineTotal }}</button>
+            </sc-if>
+            <sc-if value="{{ pdSoldOut }}" hint-placeholder-val="{{ false }}">
+              <button style="height:54px;border-radius:999px;border:0;background:#5C5650;color:#F5EFE9;font-weight:800;font-size:16px;cursor:not-allowed">Sold out</button>
+            </sc-if>
+            <button onClick="{{ askWa }}" style="height:50px;border-radius:999px;border:1px solid #25D366;background:none;color:#F5EFE9;font-weight:700;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:10px;height:10px;border-radius:999px;background:#25D366"></span>{{ askLabel }}</button>
+          </div>
+
+          <div style="padding-top:14px">
+            <h2 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px">You go like these too</h2>
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 10px">
+              <sc-for list="{{ related }}" as="c" hint-placeholder-count="4">
+                <div onClick="{{ c.open }}" style="display:flex;flex-direction:column;gap:4px;cursor:pointer;min-width:0">
+                  <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);margin-bottom:4px">
+                    <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+                  </div>
+                  <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</div>
+                  <div style="font-size:18px;font-weight:800">{{ c.price }}</div>
+                  <div style="font-size:11px;font-weight:600;color:#D29A7E">Wholesale from {{ c.ws }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isWholesale }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:22px">
+          <div>
+            <span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#D29A7E">WHOLESALE</span>
+            <h1 style="margin:6px 0 6px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1">Bundle prices for your shop</h1>
+            <p style="margin:0;font-size:14px;color:#A89F96;line-height:1.5">Prices are per piece. Bundles are 20–30 pieces of one item.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:12px"><span style="flex:0 0 28px;height:28px;border-radius:999px;border:1px solid #D29A7E;color:#D29A7E;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:14px;line-height:1.45;padding-top:4px">Pick the item and colour. Sizes can be mixed inside a bundle.</span></div>
+            <div style="display:flex;gap:12px"><span style="flex:0 0 28px;height:28px;border-radius:999px;border:1px solid #D29A7E;color:#D29A7E;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:14px;line-height:1.45;padding-top:4px">Order at least one bundle. More bundles, same per-piece price.</span></div>
+            <div style="display:flex;gap:12px"><span style="flex:0 0 28px;height:28px;border-radius:999px;border:1px solid #D29A7E;color:#D29A7E;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:14px;line-height:1.45;padding-top:4px">Pay, then pick up or we waybill to your state.</span></div>
+          </div>
+
+          <div style="border:1px solid #2D2926;border-radius:10px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:minmax(0,1.6fr) .7fr .9fr 1fr;gap:6px;padding:10px 12px;background:#1B1917;font-size:11px;font-weight:800;color:#A89F96;letter-spacing:.04em">
+              <span>ITEM</span><span style="text-align:right">MIN</span><span style="text-align:right">PER PC</span><span style="text-align:right">BUNDLE</span>
+            </div>
+            <sc-for list="{{ wsRows }}" as="r" hint-placeholder-count="8">
+              <div onClick="{{ r.open }}" style="display:grid;grid-template-columns:minmax(0,1.6fr) .7fr .9fr 1fr;gap:6px;padding:12px;border-top:1px solid #2D2926;font-size:13px;align-items:center;cursor:pointer">
+                <span style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
+                <span style="text-align:right;color:#A89F96">{{ r.min }}</span>
+                <span style="text-align:right;font-weight:800;color:#D29A7E">{{ r.ws }}</span>
+                <span style="text-align:right;font-weight:800">{{ r.bundle }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="padding:18px;border-radius:10px;background:#1B1917;border:1px solid #2D2926;display:flex;flex-direction:column;gap:12px">
+            <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px">Request a custom mix</h2>
+            <p style="margin:0;font-size:13px;color:#A89F96">Mix items into one order. We confirm price and stock on WhatsApp.</p>
+            <sc-for list="{{ mixRows }}" as="m" hint-placeholder-count="1">
+              <div style="display:flex;gap:8px;align-items:center">
+                <select value="{{ m.item }}" onChange="{{ m.onItem }}" style="flex:1;min-width:0;height:44px;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;color:#F5EFE9;padding:0 10px;font-size:14px">
+                  <sc-for list="{{ productNames }}" as="pn" hint-placeholder-count="1"><option value="{{ pn }}">{{ pn }}</option></sc-for>
+                </select>
+                <input value="{{ m.qty }}" onChange="{{ m.onQty }}" inputmode="numeric" placeholder="Pcs" style="width:64px;height:44px;box-sizing:border-box;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;color:#F5EFE9;padding:0 10px;font-size:14px;text-align:center">
+                <button onClick="{{ m.onRemove }}" style="width:36px;height:44px;border:0;background:none;color:#A89F96;font-size:18px;cursor:pointer">×</button>
+              </div>
+            </sc-for>
+            <button onClick="{{ addMix }}" style="align-self:flex-start;height:36px;padding:0 14px;border-radius:999px;border:1px dashed #A89F96;background:none;color:#F5EFE9;font-weight:700;font-size:13px;cursor:pointer">+ Add item</button>
+            <button onClick="{{ previewMix }}" style="height:50px;border-radius:999px;border:0;background:#25D366;color:#0F0E0D;font-weight:800;font-size:15px;cursor:pointer">Send custom mix on WhatsApp</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPickup }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:20px">
+          <div>
+            <span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#D29A7E">PICKUP & DELIVERY</span>
+            <h1 style="margin:6px 0 0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1">Come pick it up</h1>
+          </div>
+          <div style="padding:16px 18px;border-radius:10px;background:#1B1917;border:1px solid #2D2926;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:16px;font-weight:700">[Pickup address, Lagos]</span>
+            <span style="font-size:14px;color:#A89F96">Open 12pm – 4pm</span>
+          </div>
+          <div style="aspect-ratio:4/3;border-radius:10px;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#2A1A17 8px 16px);display:flex;align-items:flex-end;padding:10px;box-sizing:border-box;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#A89F96">red building · RR direction photo</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:12px"><span style="flex:0 0 28px;height:28px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:14px;line-height:1.45;padding-top:4px">Get to [landmark / bus stop].</span></div>
+            <div style="display:flex;gap:12px"><span style="flex:0 0 28px;height:28px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:14px;line-height:1.45;padding-top:4px">Look for the red building in the photo above.</span></div>
+            <div style="display:flex;gap:12px"><span style="flex:0 0 28px;height:28px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:14px;line-height:1.45;padding-top:4px">Ask for RR Retail, [floor / shop number]. Show your WhatsApp order.</span></div>
+          </div>
+          <div style="aspect-ratio:16/10;border-radius:10px;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#24201D 8px 16px);display:flex;align-items:flex-end;padding:10px;box-sizing:border-box;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#A89F96">map embed</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="padding:16px;border-radius:10px;border:1px solid #2D2926;display:flex;flex-direction:column;gap:6px"><span style="font-weight:800;font-size:15px">Lagos delivery</span><span style="font-size:13px;color:#A89F96;line-height:1.4">Dispatch rider to your door. Fee confirmed on WhatsApp.</span></div>
+            <div style="padding:16px;border-radius:10px;border:1px solid #2D2926;display:flex;flex-direction:column;gap:6px"><span style="font-weight:800;font-size:15px">Outside Lagos</span><span style="font-size:13px;color:#A89F96;line-height:1.4">Waybill to your park. Fee confirmed on WhatsApp.</span></div>
+          </div>
+          <button onClick="{{ askDelivery }}" style="height:50px;border-radius:999px;border:1px solid #25D366;background:none;color:#F5EFE9;font-weight:700;font-size:15px;cursor:pointer">Ask about delivery on WhatsApp</button>
+        </div>
+      </sc-if>
+
+      <div style="margin-top:40px;padding:26px 16px 20px;border-top:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;color:#D29A7E">RR Retail Stores</span>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px">
+          <a href="https://wa.me/2349047868240" target="_blank">WhatsApp · 0904 786 8240</a>
+          <a href="https://t.me/" target="_blank">Telegram channel</a>
+          <a href="https://www.tiktok.com/@rr.retail.stores" target="_blank">TikTok · @rr.retail.stores</a>
+        </div>
+        <span style="font-size:13px;color:#A89F96">[Pickup address, Lagos] · Open 12pm – 4pm</span>
+      </div>
+    </div>
+
+    <button onClick="{{ waFloat }}" title="Chat on WhatsApp" style="position:absolute;right:14px;bottom:84px;z-index:6;width:54px;height:54px;border-radius:999px;border:0;background:#25D366;color:#0F0E0D;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.45)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.3 18.7z"></path></svg>
+    </button>
+
+    <div style="position:absolute;left:50%;bottom:150px;z-index:9;transform:translateX(-50%) {{ toastY }};opacity:{{ toastOpacity }};transition:opacity .25s,transform .25s;pointer-events:none;padding:12px 18px;border-radius:999px;background:#F5EFE9;color:#0F0E0D;font-weight:800;font-size:14px;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4)">{{ toast }}</div>
+
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:7;height:72px;padding-bottom:6px;box-sizing:border-box;display:grid;grid-template-columns:repeat(5,1fr);background:#0F0E0D;border-top:1px solid #2D2926">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <button onClick="{{ t.onClick }}" style="position:relative;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:{{ t.color }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="{{ t.d }}"></path></svg>
+          <span style="font-size:11px;font-weight:700">{{ t.label }}</span>
+          <sc-if value="{{ t.showCount }}"><span style="position:absolute;top:8px;left:calc(50% + 6px);min-width:17px;height:17px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-sizing:border-box">{{ t.count }}</span></sc-if>
+        </button>
+      </sc-for>
+    </div>
+
+    <div onClick="{{ closeBag }}" style="position:absolute;inset:0;z-index:10;background:rgba(0,0,0,.6);transition:opacity .25s;opacity:{{ overlayOpacity }};pointer-events:{{ overlayPE }}"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:11;max-height:88%;display:flex;flex-direction:column;background:#141210;border-radius:20px 20px 0 0;border-top:1px solid #2D2926;transition:transform .35s cubic-bezier(.2,1.1,.3,1);transform:{{ sheetTransform }}">
+      <div onClick="{{ closeBag }}" style="padding:10px 0 4px;display:flex;justify-content:center;cursor:pointer"><span style="width:40px;height:5px;border-radius:999px;background:#5C5650"></span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 18px 12px">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px">{{ sheetTitle }}</span>
+        <button onClick="{{ closeBag }}" style="width:44px;height:44px;border:0;background:none;color:#A89F96;font-size:22px;cursor:pointer">×</button>
+      </div>
+      <div style="overflow-y:auto;padding:0 18px 18px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+
+        <sc-if value="{{ sheetMsgOnly }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:14px;border-radius:10px;background:#0B141A;display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#8696A0">To RR Retail · 0904 786 8240</span>
+            <div style="align-self:flex-end;max-width:92%;padding:10px 12px;border-radius:10px 2px 10px 10px;background:#005C4B;color:#E9EDEF;font-size:13px;line-height:1.45;white-space:pre-wrap">{{ msgText }}</div>
+          </div>
+          <button onClick="{{ sendMsg }}" style="height:54px;border-radius:999px;border:0;background:#25D366;color:#0F0E0D;font-weight:800;font-size:16px;cursor:pointer">{{ sendLabel }}</button>
+        </sc-if>
+
+        <sc-if value="{{ bagEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px 0 8px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center">
+            <span style="font-size:16px;font-weight:600;color:#A89F96;max-width:260px">Nothing here yet. Start with what just restocked.</span>
+            <button onClick="{{ emptyCta }}" style="height:48px;padding:0 22px;border-radius:999px;border:0;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:15px;cursor:pointer">See what just restocked</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ bagFilled }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ bagLines }}" as="l" hint-placeholder-count="2">
+              <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #2D2926">
+                <div style="position:relative;flex:0 0 60px;aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:#1B1917"><img src="{{ l.img }}" alt="{{ l.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                  <div style="display:flex;justify-content:space-between;gap:8px"><span style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</span><span style="font-size:15px;font-weight:800;white-space:nowrap">{{ l.total }}</span></div>
+                  <div style="display:flex;gap:6px;align-items:center;font-size:12px;color:#A89F96"><span style="padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800;background:{{ l.tagBg }};color:{{ l.tagFg }}">{{ l.mode }}</span><span>{{ l.meta }}</span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px">
+                    <div style="display:flex;align-items:center;border:1px solid #2D2926;border-radius:999px">
+                      <button onClick="{{ l.dec }}" style="width:34px;height:34px;border:0;background:none;color:#F5EFE9;font-size:16px;cursor:pointer">−</button>
+                      <span style="min-width:22px;text-align:center;font-weight:800;font-size:14px">{{ l.qty }}</span>
+                      <button onClick="{{ l.inc }}" style="width:34px;height:34px;border:0;background:none;color:#F5EFE9;font-size:16px;cursor:pointer">+</button>
+                    </div>
+                    <span style="font-size:12px;color:#A89F96">{{ l.unitText }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;font-weight:700;color:#A89F96">Subtotal · {{ pieceCount }}</span><span style="font-size:24px;font-weight:800">{{ subtotal }}</span></div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:700;color:#A89F96">How you want am?</span>
+            <div style="display:flex;gap:8px">
+              <sc-for list="{{ deliveryChips }}" as="d" hint-placeholder-count="3">
+                <button onClick="{{ d.onClick }}" style="flex:1;height:44px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.border }}">{{ d.label }}</button>
+              </sc-for>
+            </div>
+            <span style="font-size:12px;color:#A89F96">{{ deliveryNote }}</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <input value="{{ name }}" onChange="{{ onName }}" placeholder="Your name" style="height:46px;box-sizing:border-box;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;color:#F5EFE9;padding:0 14px;font-size:15px">
+            <input value="{{ phone }}" onChange="{{ onPhone }}" placeholder="Phone number" inputmode="tel" style="height:46px;box-sizing:border-box;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;color:#F5EFE9;padding:0 14px;font-size:15px">
+            <sc-if value="{{ needAddress }}" hint-placeholder-val="{{ false }}">
+              <input value="{{ address }}" onChange="{{ onAddress }}" placeholder="{{ addressPh }}" style="height:46px;box-sizing:border-box;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;color:#F5EFE9;padding:0 14px;font-size:15px">
+            </sc-if>
+            <input value="{{ note }}" onChange="{{ onNote }}" placeholder="Note (optional)" style="height:46px;box-sizing:border-box;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;color:#F5EFE9;padding:0 14px;font-size:15px">
+            <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:700;color:#E2574C">{{ formErrorText }}</span></sc-if>
+          </div>
+
+          <sc-if value="{{ showPreview }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:14px;border-radius:10px;background:#0B141A;display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:11px;font-weight:700;color:#8696A0">Preview · what RR receives</span>
+              <div style="align-self:flex-end;max-width:92%;padding:10px 12px;border-radius:10px 2px 10px 10px;background:#005C4B;color:#E9EDEF;font-size:13px;line-height:1.45;white-space:pre-wrap">{{ orderMsg }}</div>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button onClick="{{ sendOrder }}" style="height:54px;border-radius:999px;border:0;background:#25D366;color:#0F0E0D;font-weight:800;font-size:16px;cursor:pointer">{{ orderSendLabel }}</button>
+            <button onClick="{{ togglePreview }}" style="height:40px;border:0;background:none;color:#A89F96;font-weight:700;font-size:13px;cursor:pointer">{{ previewLabel }}</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;retail&quot;,&quot;wholesale&quot;],&quot;default&quot;:&quot;retail&quot;,&quot;tsType&quot;:&quot;'retail'|'wholesale'&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;shop&quot;,&quot;product&quot;,&quot;wholesale&quot;,&quot;pickup&quot;,&quot;bag&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const WA = '2349047868240';
+const P = [
+  { id: 'lst', name: 'Ladies Basic Top (Long Sleeve)', cat: 'Ladies', price: 4000, ws: 3200, min: 20, badge: 'Restocked', rank: 2, best: 1, sizes: ['S','M','L','XL'], sold: ['XL'], colors: [['Black','#111'],['White','#EEE9E2'],['Brown','#6B4A36']] },
+  { id: 'rnt', name: 'Round Neck Tee', cat: 'Basics', price: 3500, ws: 2700, min: 30, badge: 'New', rank: 1, best: 2, sizes: ['S','M','L','XL','XXL'], sold: [], colors: [['White','#EEE9E2'],['Black','#111'],['Grey','#8A8580']] },
+  { id: 'jog', name: 'Fleece Joggers', cat: 'Jeans & Joggers', price: 7500, ws: 6000, min: 20, badge: 'Few left', rank: 4, best: 3, sizes: ['M','L','XL'], sold: ['M'], colors: [['Grey','#8A8580'],['Black','#111']] },
+  { id: 'bgj', name: 'Baggy Jeans', cat: 'Jeans & Joggers', price: 12000, ws: 9500, min: 20, badge: 'New', rank: 0, best: 4, sizes: ['28','30','32','34','36'], sold: ['36'], colors: [['Light wash','#9DB3C8'],['Dark wash','#2E3E55']] },
+  { id: 'pol', name: 'Classic Polo', cat: 'Men', price: 6000, ws: 4800, min: 25, badge: null, rank: 5, best: 5, sizes: ['M','L','XL','XXL'], sold: [], colors: [['Navy','#1F2A44'],['Cream','#E8DCC6'],['Black','#111']] },
+  { id: 'vin', name: 'Vintage Graphic Top', cat: 'Ladies', price: 5500, ws: 4300, min: 20, badge: 'Restocked', rank: 3, best: 6, sizes: ['S','M','L'], sold: [], colors: [['Washed black','#2B2826'],['Faded red','#9C4A42']] },
+  { id: 'crp', name: 'Ribbed Crop Top', cat: 'Ladies', price: 3000, ws: 2300, min: 30, badge: null, rank: 6, best: 7, sizes: ['S','M','L'], sold: ['S','M','L'], soldOut: true, colors: [['Black','#111'],['Pink','#D9A3A8']] },
+  { id: 'crg', name: 'Cargo Pants', cat: 'Men', price: 10000, ws: 8000, min: 20, badge: null, rank: 7, best: 8, sizes: ['30','32','34','36'], sold: [], colors: [['Khaki','#A08C64'],['Black','#111']] },
+];
+const CATS = ['All','Ladies','Men','Jeans & Joggers','Basics','Bundles'];
+const fmt = n => '₦' + n.toLocaleString('en-NG');
+const BADGE = { 'New': ['#D29A7E','#0F0E0D'], 'Restocked': ['#F5EFE9','#0F0E0D'], 'Few left': ['#E2574C','#fff'] };
+const ICONS = {
+  home: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z',
+  shop: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  wholesale: 'M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8',
+  pickup: 'M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12zM12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
+  bag: 'M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2',
+};
+const link = p => `rrretail.ng/p/${p.id}`;
+const u = (id, w = 600) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+const IMG = { lst: ['1620799140408-edc6dcb6d633','1564584217132-2271feaeb3c5'], rnt: ['1581655353564-df123a1eb820','1618354691373-d851c5c3a990'], jog: ['1515886657613-9f3515b0c78f','1583743814966-8936f5b7be1a'], bgj: ['1602293589930-45aad59ba3ab','1542272604-787c3835535d'], pol: ['1596755094514-f87e34085b2c','1603252109303-2751441dd157'], vin: ['1716541424893-734612ddcabb','1558769132-cb1aea458c5e'], crp: ['1525507119028-ed4c629a60a3','1434389677669-e08b4cac3105'], crg: ['1714143136372-ddaf8b606da7','1637069585336-827b298fe84a'] };
+const CATIMG = { 'Ladies': '1490481651871-ab68de25d43d', 'Men': '1489987707025-afc232f7ea0f', 'Jeans & Joggers': '1714729382668-7bc3bb261662', 'Basics': '1562157873-818bc0726f68', 'Bundles': '1555529771-835f59fc5efe' };
+const TT = ['1540221652346-e5dd6b50f3e7','1582719188393-bb71ca45dbb9','1603400521630-9f2de124b33b','1483985988355-763728e1935b','1604176354204-9268737828e4','1768228542712-0d68063ec9a9'];
+
+
+class Component extends DCLogic {
+  state = { screen: 'home', prev: 'home', pid: 'lst', cat: 'All', inStock: false, under5: false, sort: 'new',
+    mode: 'retail', size: null, color: 'Black', qty: 1, needSize: false,
+    bag: [], bagOpen: false, msg: null, sending: false,
+    delivery: 'Pickup', name: '', phone: '', address: '', note: '', formErr: '', showPreview: false,
+    mix: [{ item: P[0].name, qty: '20' }], toast: '', toastOn: false, bump: false };
+  scrollRef = React.createRef();
+
+  componentDidMount() {
+    let mode = this.props.defaultMode || 'retail';
+    try { mode = localStorage.getItem('rr_mode') || mode; } catch (e) {}
+    const s = this.props.startScreen || 'home';
+    this.setState({ mode, screen: s === 'bag' ? 'home' : s, bagOpen: s === 'bag', color: P[0].colors[0][0] });
+  }
+  go(screen, extra = {}) {
+    this.setState(st => ({ screen, prev: st.screen === 'product' ? st.prev : st.screen, bagOpen: false, msg: null, ...extra }));
+    if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0;
+  }
+  openP(p) { this.go('product', { pid: p.id, size: null, color: p.colors[0][0], qty: 1, needSize: false }); }
+  setMode(mode) { try { localStorage.setItem('rr_mode', mode); } catch (e) {} this.setState({ mode, qty: 1 }); }
+  showToast(t) {
+    clearTimeout(this._t); clearTimeout(this._b);
+    this.setState({ toast: t, toastOn: true, bump: true });
+    this._b = setTimeout(() => this.setState({ bump: false }), 200);
+    this._t = setTimeout(() => this.setState({ toastOn: false }), 1800);
+  }
+  openWa(text) { window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`, '_blank'); }
+  showMsg(title, text) { this.setState({ bagOpen: true, msg: { title, text }, sending: false }); }
+
+  card(p) {
+    const b = p.soldOut ? null : p.badge;
+    return { name: p.name, price: fmt(p.price), ws: fmt(p.ws), photo: 'flat-lay · ' + p.id, img: u(IMG[p.id][0]),
+      hasBadge: !!b, badge: b || '', badgeBg: b ? BADGE[b][0] : '', badgeFg: b ? BADGE[b][1] : '',
+      soldOut: !!p.soldOut, nameColor: p.soldOut ? '#A89F96' : '#F5EFE9',
+      inBag: this.state.bag.some(l => l.pid === p.id), open: () => this.openP(p) };
+  }
+  line(l) { const p = P.find(x => x.id === l.pid); const pieces = l.mode === 'Wholesale' ? l.qty * p.min : l.qty; const unit = l.mode === 'Wholesale' ? p.ws : p.price; return { p, pieces, unit, total: pieces * unit }; }
+  orderText() {
+    const s = this.state; let sub = 0;
+    const rows = s.bag.map((l, i) => { const c = this.line(l); sub += c.total;
+      return l.mode === 'Wholesale'
+        ? `${i + 1}. ${c.p.name} (WHOLESALE) · ${l.color}, ${l.size}\n   ${l.qty} bundle${l.qty > 1 ? 's' : ''} × ${c.p.min} pcs @ ${fmt(c.unit)} = ${fmt(c.total)}`
+        : `${i + 1}. ${c.p.name} · ${l.color}, ${l.size}\n   ${l.qty} pc${l.qty > 1 ? 's' : ''} × ${fmt(c.unit)} = ${fmt(c.total)}`; });
+    return [`Hi RR, I'd like to order:`, '', ...rows, '', `Subtotal: ${fmt(sub)}`, `Delivery: ${s.delivery}${s.delivery === 'Pickup' ? '' : ' (please confirm fee)'}`,
+      `Name: ${s.name || '—'}`, `Phone: ${s.phone || '—'}`, ...(s.delivery !== 'Pickup' ? [`Address: ${s.address || '—'}`] : []), ...(s.note ? [`Note: ${s.note}`] : [])].join('\n');
+  }
+
+  renderVals() {
+    const s = this.state;
+    const p = P.find(x => x.id === s.pid) || P[0];
+    const ws = s.mode === 'wholesale';
+    const chip = (on, label, onClick) => ({ label, onClick, bg: on ? '#F5EFE9' : 'transparent', fg: on ? '#0F0E0D' : '#F5EFE9', border: on ? '#F5EFE9' : '#2D2926' });
+
+    let list = P.filter(x => s.cat === 'All' || s.cat === 'Bundles' || x.cat === s.cat);
+    if (s.inStock) list = list.filter(x => !x.soldOut);
+    if (s.under5) list = list.filter(x => x.price < 5000);
+    list = [...list].sort(s.sort === 'new' ? (a, b) => a.rank - b.rank : (a, b) => a.price - b.price);
+
+    const maxQ = ws ? 20 : 10;
+    const pieces = ws ? s.qty * p.min : s.qty;
+    const total = pieces * (ws ? p.ws : p.price);
+    const bagCount = s.bag.reduce((n, l) => n + l.qty, 0);
+    const totalPieces = s.bag.reduce((n, l) => n + this.line(l).pieces, 0);
+    const sub = s.bag.reduce((n, l) => n + this.line(l).total, 0);
+    const nav = k => () => k === 'bag' ? this.setState({ bagOpen: true, msg: null }) : this.go(k);
+    const active = s.bagOpen && !s.msg ? 'bag' : (s.screen === 'product' ? 'shop' : s.screen);
+
+    return {
+      scrollRef: this.scrollRef, heroImg: u('1532453288672-3a27e9be9efd', 900),
+      isHome: s.screen === 'home', isShop: s.screen === 'shop', isProduct: s.screen === 'product', isWholesale: s.screen === 'wholesale', isPickup: s.screen === 'pickup',
+      goHome: () => this.go('home'), goShop: () => this.go('shop', { cat: 'All' }), goWholesale: () => this.go('wholesale'), goPickup: () => this.go('pickup'),
+      goBack: () => this.go(s.prev || 'shop'),
+      hasBag: bagCount > 0, bagCount, bumpTransform: s.bump ? 'scale(1.35)' : 'scale(1)',
+      openBag: () => this.setState({ bagOpen: true, msg: null }), closeBag: () => this.setState({ bagOpen: false }),
+
+      restocked: P.filter(x => x.badge === 'New' || x.badge === 'Restocked').sort((a, b) => a.rank - b.rank).map(x => this.card(x)),
+      bestSellers: [...P].sort((a, b) => a.best - b.best).slice(0, 6).map(x => this.card(x)),
+      catTiles: CATS.slice(1).map((c, i) => ({ label: c, photo: c.toLowerCase(), img: u(CATIMG[c], i === 0 ? 900 : 500), ratio: i === 0 ? '2/1' : '1/1', span: i === 0 ? 'span 2' : 'auto', open: () => this.go('shop', { cat: c }) })),
+      tiktoks: TT.map((id, i) => ({ n: i + 1, img: u(id, 300) })), chats: [1, 2, 3].map(n => ({ n })),
+
+      shopTitle: s.cat === 'All' ? 'All items' : s.cat,
+      shopCount: `${list.length} item${list.length === 1 ? '' : 's'}${s.cat === 'Bundles' ? ' · all sold in bundles too' : ''}`,
+      catChips: CATS.map(c => chip(s.cat === c, c, () => this.setState({ cat: c }))),
+      filterChips: [
+        chip(s.inStock, s.inStock ? '✓ In stock' : 'In stock', () => this.setState({ inStock: !s.inStock })),
+        chip(s.under5, s.under5 ? '✓ Under ₦5,000' : 'Under ₦5,000', () => this.setState({ under5: !s.under5 })),
+        chip(false, s.sort === 'new' ? 'Sort: Newest' : 'Sort: Price low–high', () => this.setState({ sort: s.sort === 'new' ? 'price' : 'new' })),
+      ],
+      shopCards: list.map(x => this.card(x)), shopEmpty: list.length === 0,
+
+      gallery: ['front', 'back', 'detail · fabric'].map((l, i) => ({ label: `${p.name} · ${l}`, n: `${i + 1}/3`, img: u(IMG[p.id][i === 1 ? 1 : 0], 800) + (i === 2 ? '&fp-z=2&crop=focalpoint&fp-x=.5&fp-y=.5' : '') })),
+      pd: this.card(p),
+      retailBg: ws ? 'transparent' : '#D29A7E', retailFg: ws ? '#A89F96' : '#0F0E0D',
+      wsBg: ws ? '#D29A7E' : 'transparent', wsFg: ws ? '#0F0E0D' : '#A89F96',
+      setRetail: () => this.setMode('retail'), setWholesale: () => this.setMode('wholesale'), isWsMode: ws,
+      priceBig: ws ? fmt(p.ws) : fmt(p.price), priceUnit: ws ? '/ piece' : '',
+      priceSub: ws ? `Bundle of ${p.min} pcs = ${fmt(p.ws * p.min)} · Retail ${fmt(p.price)}` : `Wholesale ${fmt(p.ws)}/pc · min ${p.min} pcs`,
+      colorName: s.color,
+      swatches: p.colors.map(([n, hex]) => ({ name: n, hex, ring: s.color === n ? '#D29A7E' : '#2D2926', onClick: () => this.setState({ color: n }) })),
+      sizeChips: p.sizes.map(z => { const out = p.sold.includes(z), on = s.size === z;
+        return { label: z, deco: out ? 'line-through' : 'none', bg: on ? '#F5EFE9' : 'transparent', fg: out ? '#5C5650' : on ? '#0F0E0D' : '#F5EFE9', border: on ? '#F5EFE9' : '#2D2926',
+          onClick: () => { if (!out) this.setState({ size: z, needSize: false }); } }; }),
+      qty: s.qty, decColor: s.qty <= 1 ? '#5C5650' : '#F5EFE9', incColor: s.qty >= maxQ ? '#5C5650' : '#F5EFE9',
+      dec: () => this.setState({ qty: Math.max(1, s.qty - 1) }), inc: () => this.setState({ qty: Math.min(maxQ, s.qty + 1) }),
+      qtyLabel: ws ? `${s.qty} bundle${s.qty > 1 ? 's' : ''} = ${pieces} pieces` : `${s.qty} piece${s.qty > 1 ? 's' : ''}`,
+      lineTotal: fmt(total), needSize: s.needSize,
+      pdAvailable: !p.soldOut, pdSoldOut: !!p.soldOut,
+      addToBag: () => {
+        if (!s.size) return this.setState({ needSize: true });
+        const mode = ws ? 'Wholesale' : 'Retail', key = [p.id, s.size, s.color, mode].join('|');
+        this.setState(st => { const ex = st.bag.find(l => l.key === key);
+          return { bag: ex ? st.bag.map(l => l.key === key ? { ...l, qty: l.qty + st.qty } : l) : [...st.bag, { key, pid: p.id, size: s.size, color: s.color, mode, qty: st.qty }] }; });
+        this.showToast('Added! Your bag dey wait 🛍️');
+      },
+      askLabel: p.soldOut ? 'Ask when it’s restocking' : 'Ask on WhatsApp',
+      askWa: () => this.showMsg('Ask on WhatsApp', p.soldOut
+        ? `Hi RR, when will this be restocked?\n${p.name}, ${s.color}\n${link(p)}`
+        : `Hi RR, is this available?\n${p.name}, ${s.color}${s.size ? ', size ' + s.size : ''}\n${ws ? `Wholesale: ${fmt(p.ws)}/pc, min ${p.min} pcs` : `Retail: ${fmt(p.price)}`}\n${link(p)}`),
+      related: P.filter(x => x.id !== p.id && !x.soldOut && (x.cat === p.cat || x.price <= p.price + 3000)).slice(0, 4).map(x => this.card(x)),
+
+      wsRows: P.map(x => ({ name: x.name, min: x.min, ws: fmt(x.ws), bundle: fmt(x.ws * x.min), open: () => this.openP(x) })),
+      productNames: P.map(x => x.name),
+      mixRows: s.mix.map((m, i) => ({ item: m.item, qty: m.qty,
+        onItem: e => { const v = e.target.value; this.setState(st => ({ mix: st.mix.map((r, j) => j === i ? { ...r, item: v } : r) })); },
+        onQty: e => { const v = e.target.value.replace(/\D/g, ''); this.setState(st => ({ mix: st.mix.map((r, j) => j === i ? { ...r, qty: v } : r) })); },
+        onRemove: () => this.setState(st => ({ mix: st.mix.length > 1 ? st.mix.filter((_, j) => j !== i) : st.mix })) })),
+      addMix: () => this.setState(st => ({ mix: [...st.mix, { item: P[1].name, qty: '20' }] })),
+      previewMix: () => this.showMsg('Custom mix', `Hi RR, I want a custom wholesale mix:\n\n${s.mix.map((m, i) => `${i + 1}. ${m.item} · ${m.qty || '?'} pcs`).join('\n')}\n\nTotal: ${s.mix.reduce((n, m) => n + (+m.qty || 0), 0)} pcs\nPlease send price and what's in stock.`),
+      askDelivery: () => this.showMsg('Ask about delivery', `Hi RR, how much is delivery to [my area]?`),
+      waFloat: () => this.showMsg('Chat with RR', `Hi RR, I saw your store online. I have a question:`),
+
+      toast: s.toast, toastOpacity: s.toastOn ? 1 : 0, toastY: s.toastOn ? 'translateY(0)' : 'translateY(10px)',
+      tabs: ['home', 'shop', 'wholesale', 'pickup', 'bag'].map(k => ({ d: ICONS[k], label: k[0].toUpperCase() + k.slice(1), onClick: nav(k),
+        color: active === k ? '#D29A7E' : '#A89F96', showCount: k === 'bag' && bagCount > 0, count: bagCount })),
+
+      overlayOpacity: s.bagOpen ? 1 : 0, overlayPE: s.bagOpen ? 'auto' : 'none', sheetTransform: s.bagOpen ? 'translateY(0)' : 'translateY(105%)',
+      sheetTitle: s.msg ? s.msg.title : 'Your bag',
+      sheetMsgOnly: !!s.msg, msgText: s.msg ? s.msg.text : '',
+      sendLabel: s.sending ? 'Opening WhatsApp…' : 'Send on WhatsApp',
+      sendMsg: () => { this.setState({ sending: true }); this.openWa(s.msg.text); setTimeout(() => this.setState({ sending: false }), 1500); },
+      bagEmpty: !s.msg && s.bag.length === 0, bagFilled: !s.msg && s.bag.length > 0,
+      emptyCta: () => this.go('shop', { cat: 'All', sort: 'new' }),
+      bagLines: s.bag.map(l => { const c = this.line(l), w = l.mode === 'Wholesale';
+        const upd = d => this.setState(st => ({ bag: st.bag.map(x => x.key === l.key ? { ...x, qty: x.qty + d } : x).filter(x => x.qty > 0) }));
+        return { name: c.p.name, img: u(IMG[c.p.id][0], 200), total: fmt(c.total), mode: l.mode, tagBg: w ? '#D29A7E' : '#2D2926', tagFg: w ? '#0F0E0D' : '#F5EFE9',
+          meta: `${l.color} · ${l.size}`, qty: l.qty, unitText: w ? `${l.qty} × ${c.p.min} pcs @ ${fmt(c.unit)}` : `${fmt(c.unit)} each`,
+          dec: () => upd(-1), inc: () => upd(1) }; }),
+      pieceCount: `${totalPieces} piece${totalPieces === 1 ? '' : 's'}`, subtotal: fmt(sub),
+      deliveryChips: ['Pickup', 'Lagos delivery', 'Waybill'].map(d => ({ ...chip(s.delivery === d, d, () => this.setState({ delivery: d, formErr: '' })), bg: s.delivery === d ? '#D29A7E' : 'transparent', border: s.delivery === d ? '#D29A7E' : '#2D2926' })),
+      deliveryNote: s.delivery === 'Pickup' ? 'Free · pick up 12pm – 4pm' : 'Fee confirmed on WhatsApp',
+      needAddress: s.delivery !== 'Pickup', addressPh: s.delivery === 'Waybill' ? 'State and park for waybill' : 'Delivery address in Lagos',
+      name: s.name, phone: s.phone, address: s.address, note: s.note,
+      onName: e => this.setState({ name: e.target.value, formErr: '' }), onPhone: e => this.setState({ phone: e.target.value, formErr: '' }),
+      onAddress: e => this.setState({ address: e.target.value, formErr: '' }), onNote: e => this.setState({ note: e.target.value }),
+      formError: !!s.formErr, formErrorText: s.formErr,
+      showPreview: s.showPreview, orderMsg: this.orderText(),
+      previewLabel: s.showPreview ? 'Hide message preview' : 'Preview the WhatsApp message',
+      togglePreview: () => this.setState({ showPreview: !s.showPreview }),
+      orderSendLabel: s.sending ? 'Opening WhatsApp…' : `Send order on WhatsApp · ${fmt(sub)}`,
+      sendOrder: () => {
+        if (!s.name.trim() || !s.phone.trim()) return this.setState({ formErr: 'Add your name and phone so we can reach you.' });
+        if (s.delivery !== 'Pickup' && !s.address.trim()) return this.setState({ formErr: 'Add where we should send it.' });
+        this.setState({ sending: true }); this.openWa(this.orderText()); setTimeout(() => this.setState({ sending: false }), 1500);
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

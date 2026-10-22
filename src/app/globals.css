@@ -12,6 +12,10 @@
   --color-accent: var(--accent);
   --color-ink: var(--ink);
   --color-line: var(--line);
+  --color-accent-text: var(--accent-text, var(--accent));
+  --color-sale: var(--sale, #e2574c);
+  --color-soldout: var(--soldout, #5c5650);
+  --color-tg: #229ed9;
   --color-wa: #25d366;
   --color-wa-ink: #0b2e17;
   --color-error: #b23a1e;
@@ -325,5 +329,17 @@ html.has-cursor [data-cursor] {
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* ---------- Store mode ---------- */
+
+/* Mobile: room for the bottom tab bar (72px + safe area). */
+html[data-mode='store'] body {
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+@media (min-width: 64rem) {
+  html[data-mode='store'] body {
+    padding-bottom: 0;
   }
 }

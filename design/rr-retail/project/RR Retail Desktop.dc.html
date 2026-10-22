@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0F0E0D;color:#F5EFE9;font-family:Manrope,sans-serif;-webkit-font-smoothing:antialiased}a{color:#D29A7E;text-decoration:none}a:hover{color:#F5EFE9}</style>
+</helmet>
+<div style="min-height:100vh;background:#0F0E0D">
+  <div style="position:sticky;top:0;z-index:20;background:rgba(15,14,13,.94);backdrop-filter:blur(8px);border-bottom:1px solid #2D2926">
+    <div style="max-width:1440px;margin:0 auto;padding:14px 48px;box-sizing:border-box;display:flex;align-items:center;gap:40px">
+      <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
+        <div style="width:44px;height:44px;border-radius:10px;background:#000;border:1px solid #2D2926;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:#D29A7E;letter-spacing:-.04em">RR</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;white-space:nowrap">RR Retail</span>
+      </div>
+      <div style="flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;white-space:nowrap;scrollbar-width:none">
+        <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="6">
+          <span onClick="{{ n.onClick }}" style="font-size:14px;font-weight:700;cursor:pointer;color:{{ n.color }}" style-hover="color:#D29A7E">{{ n.label }}</span>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="https://wa.me/2349047868240" target="_blank" style="height:40px;padding:0 16px;border-radius:999px;border:1px solid #25D366;color:#F5EFE9;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;white-space:nowrap"><span style="width:8px;height:8px;border-radius:999px;background:#25D366"></span>0904 786 8240</a>
+        <button ref="{{ bagRef }}" style="position:relative;width:44px;height:44px;border:0;background:none;color:#F5EFE9;display:flex;align-items:center;justify-content:center;cursor:pointer">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"></path></svg>
+          <sc-if value="{{ hasBag }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:4px;right:2px;min-width:18px;height:18px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-sizing:border-box;transition:transform .2s;transform:{{ bump }}">{{ bagCount }}</span></sc-if>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1440px;margin:0 auto;padding:0 48px;box-sizing:border-box">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center;padding:48px 0 56px">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <span style="font-size:12px;font-weight:800;letter-spacing:.16em;color:#D29A7E">LAGOS · RETAIL & WHOLESALE</span>
+          <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(56px,6vw,92px);line-height:.95;letter-spacing:-.01em">Rack it. Restock it. Rock it.</h1>
+          <p style="margin:0;font-size:19px;font-weight:500">Affordable fashion in Lagos. Retail and wholesale.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button onClick="{{ goShop }}" style="height:54px;padding:0 30px;border-radius:999px;border:0;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:16px;cursor:pointer" style-hover="background:#E0AE94">Shop now</button>
+            <button onClick="{{ goBundles }}" style="height:54px;padding:0 30px;border-radius:999px;border:1px solid #F5EFE9;background:none;color:#F5EFE9;font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#F5EFE9;color:#0F0E0D">Buy wholesale</button>
+          </div>
+          <div style="display:flex;gap:28px;flex-wrap:wrap;padding-top:18px;border-top:1px solid #2D2926;font-size:14px;color:#A89F96;font-weight:600">
+            <span>Pickup 12pm – 4pm</span><span>WhatsApp 0904 786 8240</span><span>Waybill nationwide</span>
+          </div>
+        </div>
+        <div style="position:relative;aspect-ratio:5/4;border-radius:14px;overflow:hidden">
+          <div ref="{{ heroRef }}" style="position:absolute;inset:-8% 0;background:#1B1917;will-change:transform"><img src="{{ heroImg }}" alt="RR rack" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+          
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px">Just restocked</h2>
+        <span onClick="{{ goShop }}" style="font-size:14px;font-weight:700;color:#D29A7E;cursor:pointer">See all →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:28px 18px">
+        <sc-for list="{{ restocked }}" as="c" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+            <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);margin-bottom:6px">
+              <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+              <div style="position:absolute;inset:0;opacity:0;transform:scale(1);transition:opacity .3s,transform .5s;background:#1B1917 url({{ c.img2 }}) center/cover" style-hover="opacity:1;transform:scale(1.05)"></div>
+              <sc-if value="{{ c.hasBadge }}"><span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:{{ c.badgeBg }};color:{{ c.badgeFg }};pointer-events:none">{{ c.badge }}</span></sc-if>
+              <button onClick="{{ c.add }}" style="position:absolute;right:10px;bottom:10px;height:38px;padding:0 14px;border-radius:999px;border:0;background:#F5EFE9;color:#0F0E0D;font-weight:800;font-size:13px;cursor:pointer" style-hover="background:#D29A7E">+ Add</button>
+            </div>
+            <span style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</span>
+            <span style="font-size:22px;font-weight:800">{{ c.price }}</span>
+            <span style="font-size:13px;font-weight:600;color:#D29A7E">Wholesale from {{ c.ws }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <h2 style="margin:72px 0 18px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px">Shop by category</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+        <sc-for list="{{ catTiles }}" as="t" hint-placeholder-count="5">
+          <div onClick="{{ t.open }}" style="position:relative;aspect-ratio:3/4;border-radius:10px;overflow:hidden;cursor:pointer;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)">
+            <img src="{{ t.img }}" alt="{{ t.label }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,14,13,.92));transition:background .3s" style-hover="background:linear-gradient(180deg,rgba(210,154,126,.12) 0%,rgba(15,14,13,.95))"></div>
+            <span style="position:absolute;left:16px;bottom:14px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;pointer-events:none">{{ t.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <h2 style="margin:72px 0 18px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px">Best sellers</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px 18px">
+        <sc-for list="{{ bestSellers }}" as="c" hint-placeholder-count="8">
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+            <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);margin-bottom:6px">
+              <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+              <div style="position:absolute;inset:0;opacity:0;transform:scale(1);transition:opacity .3s,transform .5s;background:#1B1917 url({{ c.img2 }}) center/cover" style-hover="opacity:1;transform:scale(1.05)"></div>
+              <sc-if value="{{ c.hasBadge }}"><span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:{{ c.badgeBg }};color:{{ c.badgeFg }};pointer-events:none">{{ c.badge }}</span></sc-if>
+              <sc-if value="{{ c.soldOut }}"><div style="position:absolute;inset:0;background:rgba(15,14,13,.65);display:flex;align-items:center;justify-content:center"><span style="padding:6px 14px;border-radius:999px;background:#5C5650;font-size:12px;font-weight:800">Sold out</span></div></sc-if>
+              <sc-if value="{{ c.canAdd }}"><button onClick="{{ c.add }}" style="position:absolute;right:10px;bottom:10px;height:38px;padding:0 14px;border-radius:999px;border:0;background:#F5EFE9;color:#0F0E0D;font-weight:800;font-size:13px;cursor:pointer" style-hover="background:#D29A7E">+ Add</button></sc-if>
+            </div>
+            <span style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:{{ c.nameColor }}">{{ c.name }}</span>
+            <span style="font-size:22px;font-weight:800;color:{{ c.nameColor }}">{{ c.price }}</span>
+            <span style="font-size:13px;font-weight:600;color:#D29A7E">Wholesale from {{ c.ws }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+        <div style="padding:30px;border-radius:14px;background:#1B1917;border:1px solid #2D2926;display:flex;flex-direction:column;gap:18px">
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px">How to order</h2>
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;gap:14px;align-items:center"><span style="flex:0 0 36px;height:36px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;display:flex;align-items:center;justify-content:center">{{ s.n }}</span><div><div style="font-weight:700;font-size:16px">{{ s.t }}</div><div style="font-size:14px;color:#A89F96">{{ s.d }}</div></div></div>
+          </sc-for>
+        </div>
+        <div onClick="{{ goBundles }}" style="padding:30px;border-radius:14px;background:#D29A7E;color:#0F0E0D;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;gap:20px">
+          <span style="font-size:12px;font-weight:800;letter-spacing:.16em">WHOLESALE</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:40px;line-height:1">Buying for your shop? Bundle prices start here.</span>
+          <span style="align-self:flex-start;padding:12px 22px;border-radius:999px;background:#0F0E0D;color:#F5EFE9;font-weight:700;font-size:15px">See bundle prices →</span>
+        </div>
+        <div style="padding:30px;border-radius:14px;background:#1B1917;border:1px solid #2D2926;display:flex;flex-direction:column;justify-content:space-between;gap:20px">
+          <span style="flex:0 0 52px;width:52px;height:52px;border-radius:999px;background:#229ED9;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M21 4L2.8 11.1c-1 .4-1 1.6 0 1.9l4.6 1.5 1.7 5.3c.2.7 1.1.9 1.6.4l2.6-2.5 4.7 3.5c.6.4 1.4.1 1.6-.6L22.3 5.2c.2-.9-.6-1.6-1.3-1.2z"></path></svg></span>
+          <span style="font-size:22px;font-weight:700;line-height:1.3">New stock drops daily on our Telegram. Don't miss am.</span>
+          <a href="https://t.me/" target="_blank" style="height:52px;border-radius:999px;background:#229ED9;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">Join the Telegram channel</a>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin:80px 0 18px">
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px">Seen on TikTok</h2>
+        <a href="https://www.tiktok.com/@rr.retail.stores" target="_blank" style="font-size:14px;font-weight:700">@rr.retail.stores →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+        <sc-for list="{{ tiktoks }}" as="v" hint-placeholder-count="6">
+          <div style="position:relative;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)">
+            <img src="{{ v.img }}" alt="TikTok video" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+            <span style="position:absolute;top:50%;left:50%;margin:-10px 0 0 -7px;border-left:18px solid rgba(245,239,233,.85);border-top:10px solid transparent;border-bottom:10px solid transparent"></span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px">
+        <sc-for list="{{ chats }}" as="v" hint-placeholder-count="4">
+          <div style="aspect-ratio:3/4;border-radius:10px;border:1px solid #2D2926;background:repeating-linear-gradient(135deg,#141210 0 8px,#191715 8px 16px);display:flex;align-items:flex-end;padding:10px;box-sizing:border-box;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#A89F96">customer chat screenshot {{ v.n }}</div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));border-radius:14px;overflow:hidden;background:#1B1917;border:1px solid #2D2926">
+        <div style="padding:36px;display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <span style="font-size:12px;font-weight:800;letter-spacing:.16em;color:#D29A7E">PICKUP STATION</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1.05">[Pickup address, Lagos]</span>
+          <span style="font-size:16px;color:#A89F96">Open 12pm – 4pm · Look for the red building</span>
+          <span style="font-size:14px;color:#A89F96">Lagos delivery and waybill outside Lagos. Fees confirmed on WhatsApp.</span>
+        </div>
+        <div style="min-height:300px;background:repeating-linear-gradient(135deg,#1B1917 0 10px,#24201D 10px 20px);display:flex;align-items:flex-end;padding:14px;box-sizing:border-box;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#A89F96">map · pickup station</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1440px;margin:0 auto;padding:40px 48px 0;box-sizing:border-box">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:13px;color:#A89F96;font-weight:600;margin-bottom:6px"><span onClick="{{ goHome }}" style="cursor:pointer">Home</span> / {{ shopTitle }}</div>
+          <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:60px;line-height:1">{{ shopTitle }}</h1>
+          <div style="font-size:15px;color:#A89F96;font-weight:600;margin-top:6px">{{ shopCount }}</div>
+        </div>
+        <div style="display:flex;padding:4px;border-radius:999px;background:#1B1917;border:1px solid #2D2926">
+          <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="2">
+            <button onClick="{{ o.onClick }}" style="height:38px;padding:0 16px;border-radius:999px;border:0;font-weight:800;font-size:13px;cursor:pointer;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding:26px 0 14px">
+        <sc-for list="{{ catChips }}" as="ch" hint-placeholder-count="6">
+          <button onClick="{{ ch.onClick }}" style="height:40px;padding:0 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ ch.bg }};color:{{ ch.fg }};border:1px solid {{ ch.border }}">{{ ch.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-bottom:28px;border-bottom:1px solid #2D2926;margin-bottom:28px">
+        <span style="font-size:13px;font-weight:700;color:#A89F96;margin-right:4px">Size</span>
+        <sc-for list="{{ sizeChips }}" as="ch" hint-placeholder-count="5">
+          <button onClick="{{ ch.onClick }}" style="min-width:44px;height:36px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;background:{{ ch.bg }};color:{{ ch.fg }};border:1px solid {{ ch.border }}">{{ ch.label }}</button>
+        </sc-for>
+        <span style="width:1px;height:24px;background:#2D2926;margin:0 8px"></span>
+        <sc-for list="{{ filterChips }}" as="ch" hint-placeholder-count="2">
+          <button onClick="{{ ch.onClick }}" style="height:36px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;background:{{ ch.bg }};color:{{ ch.fg }};border:1px solid {{ ch.border }}">{{ ch.label }}</button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ shopEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:60px 0;text-align:center;color:#A89F96;font-size:16px">Nothing matches. Try removing a filter.</div></sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:32px 18px">
+        <sc-for list="{{ shopCards }}" as="c" hint-placeholder-count="8">
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+            <div style="position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);margin-bottom:6px">
+              <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+              <div style="position:absolute;inset:0;opacity:0;transform:scale(1);transition:opacity .3s,transform .5s;background:#1B1917 url({{ c.img2 }}) center/cover" style-hover="opacity:1;transform:scale(1.05)"></div>
+              <sc-if value="{{ c.hasBadge }}"><span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:{{ c.badgeBg }};color:{{ c.badgeFg }};pointer-events:none">{{ c.badge }}</span></sc-if>
+              <sc-if value="{{ c.soldOut }}"><div style="position:absolute;inset:0;background:rgba(15,14,13,.65);display:flex;align-items:center;justify-content:center"><span style="padding:6px 14px;border-radius:999px;background:#5C5650;font-size:12px;font-weight:800">Sold out</span></div></sc-if>
+              <sc-if value="{{ c.canAdd }}"><button onClick="{{ c.add }}" style="position:absolute;right:10px;bottom:10px;height:38px;padding:0 14px;border-radius:999px;border:0;background:#F5EFE9;color:#0F0E0D;font-weight:800;font-size:13px;cursor:pointer" style-hover="background:#D29A7E">{{ c.addLabel }}</button></sc-if>
+            </div>
+            <span style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:{{ c.nameColor }}">{{ c.name }}</span>
+            <span style="font-size:22px;font-weight:800;color:{{ c.nameColor }}">{{ c.price }}</span>
+            <span style="font-size:13px;font-weight:600;color:#D29A7E">Wholesale from {{ c.ws }} · min {{ c.min }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="margin-top:96px;border-top:1px solid #2D2926">
+    <div style="max-width:1440px;margin:0 auto;padding:40px 48px;box-sizing:border-box;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;color:#D29A7E">RR Retail Stores</span><span style="font-size:14px;color:#A89F96">[Pickup address, Lagos] · Open 12pm – 4pm</span></div>
+      <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px;font-weight:600">
+        <a href="https://wa.me/2349047868240" target="_blank">WhatsApp · 0904 786 8240</a>
+        <a href="https://t.me/" target="_blank">Telegram</a>
+        <a href="https://www.tiktok.com/@rr.retail.stores" target="_blank">TikTok</a>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://wa.me/2349047868240" target="_blank" title="Chat on WhatsApp" style="position:fixed;right:28px;bottom:28px;z-index:30;width:60px;height:60px;border-radius:999px;background:#25D366;color:#0F0E0D;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.5)">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.3 18.7z"></path></svg>
+  </a>
+  <div style="position:fixed;left:50%;bottom:40px;z-index:31;transform:translateX(-50%) {{ toastY }};opacity:{{ toastOpacity }};transition:opacity .25s,transform .25s;pointer-events:none;padding:14px 22px;border-radius:999px;background:#F5EFE9;color:#0F0E0D;font-weight:800;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.4)">{{ toast }}</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;shop&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;'home'|'shop'&quot;}}">
+const P = [
+  { id: 'lst', name: 'Ladies Basic Top (Long Sleeve)', cat: 'Ladies', price: 4000, ws: 3200, min: 20, badge: 'Restocked', rank: 2, best: 1, sizes: ['S','M','L','XL'], sold: ['XL'] },
+  { id: 'rnt', name: 'Round Neck Tee', cat: 'Basics', price: 3500, ws: 2700, min: 30, badge: 'New', rank: 1, best: 2, sizes: ['S','M','L','XL','XXL'], sold: [] },
+  { id: 'jog', name: 'Fleece Joggers', cat: 'Jeans & Joggers', price: 7500, ws: 6000, min: 20, badge: 'Few left', rank: 4, best: 3, sizes: ['M','L','XL'], sold: ['M'] },
+  { id: 'bgj', name: 'Baggy Jeans', cat: 'Jeans & Joggers', price: 12000, ws: 9500, min: 20, badge: 'New', rank: 0, best: 4, sizes: ['28','30','32','34','36'], sold: ['36'] },
+  { id: 'pol', name: 'Classic Polo', cat: 'Men', price: 6000, ws: 4800, min: 25, badge: null, rank: 5, best: 5, sizes: ['M','L','XL','XXL'], sold: [] },
+  { id: 'vin', name: 'Vintage Graphic Top', cat: 'Ladies', price: 5500, ws: 4300, min: 20, badge: 'Restocked', rank: 3, best: 6, sizes: ['S','M','L'], sold: [] },
+  { id: 'crp', name: 'Ribbed Crop Top', cat: 'Ladies', price: 3000, ws: 2300, min: 30, badge: null, rank: 6, best: 7, sizes: ['S','M','L'], sold: ['S','M','L'], soldOut: true },
+  { id: 'crg', name: 'Cargo Pants', cat: 'Men', price: 10000, ws: 8000, min: 20, badge: null, rank: 7, best: 8, sizes: ['30','32','34','36'], sold: [] },
+];
+const CATS = ['All', 'Ladies', 'Men', 'Jeans & Joggers', 'Basics', 'Bundles'];
+const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
+const fmt = n => '₦' + n.toLocaleString('en-NG');
+const BADGE = { 'New': ['#D29A7E', '#0F0E0D'], 'Restocked': ['#F5EFE9', '#0F0E0D'], 'Few left': ['#E2574C', '#fff'] };
+
+const u = (id, w = 600) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+const IMG = { lst: ['1620799140408-edc6dcb6d633','1564584217132-2271feaeb3c5'], rnt: ['1581655353564-df123a1eb820','1618354691373-d851c5c3a990'], jog: ['1515886657613-9f3515b0c78f','1583743814966-8936f5b7be1a'], bgj: ['1602293589930-45aad59ba3ab','1542272604-787c3835535d'], pol: ['1596755094514-f87e34085b2c','1603252109303-2751441dd157'], vin: ['1716541424893-734612ddcabb','1558769132-cb1aea458c5e'], crp: ['1525507119028-ed4c629a60a3','1434389677669-e08b4cac3105'], crg: ['1714143136372-ddaf8b606da7','1637069585336-827b298fe84a'] };
+const CATIMG = { 'Ladies': '1490481651871-ab68de25d43d', 'Men': '1489987707025-afc232f7ea0f', 'Jeans & Joggers': '1714729382668-7bc3bb261662', 'Basics': '1562157873-818bc0726f68', 'Bundles': '1555529771-835f59fc5efe' };
+const TT = ['1540221652346-e5dd6b50f3e7','1582719188393-bb71ca45dbb9','1603400521630-9f2de124b33b','1483985988355-763728e1935b','1604176354204-9268737828e4','1768228542712-0d68063ec9a9'];
+const reduced = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+class Component extends DCLogic {
+  state = { screen: 'home', cat: 'All', size: null, inStock: false, under5: false, sort: 'new', bag: 0, toast: '', toastOn: false, bump: false };
+  heroRef = React.createRef(); bagRef = React.createRef();
+
+  componentDidMount() {
+    if (this.props.startScreen === 'shop') this.setState({ screen: 'shop' });
+    this._onScroll = () => { const el = this.heroRef.current; if (el && !reduced()) el.style.transform = `translateY(${Math.min(window.scrollY, 800) * 0.12}px)`; };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); }
+  go(screen, extra = {}) { this.setState({ screen, ...extra }); window.scrollTo(0, 0); }
+
+  add(p, e) {
+    const img = e.currentTarget.parentElement, bag = this.bagRef.current;
+    if (img && bag && !reduced() && img.animate) {
+      const a = img.getBoundingClientRect(), b = bag.getBoundingClientRect();
+      const g = document.createElement('div');
+      Object.assign(g.style, { position: 'fixed', left: a.left + 'px', top: a.top + 'px', width: a.width + 'px', height: a.height + 'px', borderRadius: '10px', background: 'repeating-linear-gradient(135deg,#2D2926 0 8px,#3A3430 8px 16px)', border: '2px solid #D29A7E', zIndex: 50, pointerEvents: 'none', transformOrigin: 'top left' });
+      document.body.appendChild(g);
+      const dx = b.left + b.width / 2 - a.left - 12, dy = b.top + b.height / 2 - a.top - 15;
+      g.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${dx}px,${dy}px) scale(${24 / a.width})`, opacity: .6 }], { duration: 550, easing: 'cubic-bezier(.5,0,.2,1)' }).onfinish = () => { g.remove(); this.added(); };
+    } else this.added();
+  }
+  added() {
+    clearTimeout(this._t); clearTimeout(this._b);
+    this.setState(s => ({ bag: s.bag + 1, toast: 'Added! Your bag dey wait 🛍️', toastOn: true, bump: true }));
+    this._b = setTimeout(() => this.setState({ bump: false }), 200);
+    this._t = setTimeout(() => this.setState({ toastOn: false }), 1800);
+  }
+  card(p) {
+    const b = p.soldOut ? null : p.badge, ws = this.state.cat === 'Bundles';
+    return { name: p.name, price: fmt(p.price), ws: fmt(p.ws), min: p.min, photo: p.id, img: u(IMG[p.id][0]), img2: u(IMG[p.id][1]),
+      hasBadge: !!b, badge: b || '', badgeBg: b ? BADGE[b][0] : '', badgeFg: b ? BADGE[b][1] : '',
+      soldOut: !!p.soldOut, canAdd: !p.soldOut, nameColor: p.soldOut ? '#A89F96' : '#F5EFE9',
+      addLabel: ws ? '+ Add bundle' : '+ Add', add: e => this.add(p, e) };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const chip = (on, label, onClick) => ({ label, onClick, bg: on ? '#F5EFE9' : 'transparent', fg: on ? '#0F0E0D' : '#F5EFE9', border: on ? '#F5EFE9' : '#2D2926' });
+    let list = P.filter(x => s.cat === 'All' || s.cat === 'Bundles' || x.cat === s.cat);
+    if (s.size) list = list.filter(x => x.sizes.includes(s.size) && !x.sold.includes(s.size));
+    if (s.inStock) list = list.filter(x => !x.soldOut);
+    if (s.under5) list = list.filter(x => x.price < 5000);
+    list = [...list].sort(s.sort === 'new' ? (a, b) => a.rank - b.rank : (a, b) => a.price - b.price);
+    const shopCat = c => () => this.go('shop', { cat: c });
+    return {
+      heroRef: this.heroRef, bagRef: this.bagRef, heroImg: u('1441984904996-e0b6ba687e04', 1400),
+      isHome: s.screen === 'home', isShop: s.screen === 'shop',
+      goHome: () => this.go('home'), goShop: shopCat('All'), goBundles: shopCat('Bundles'),
+      navLinks: [...CATS.slice(1, 5).map(c => ({ label: c, onClick: shopCat(c), color: s.screen === 'shop' && s.cat === c ? '#D29A7E' : '#F5EFE9' })),
+        { label: 'Wholesale', onClick: shopCat('Bundles'), color: s.screen === 'shop' && s.cat === 'Bundles' ? '#D29A7E' : '#F5EFE9' },
+        { label: 'Pickup', onClick: () => { this.go('home'); setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 50); }, color: '#F5EFE9' }],
+      hasBag: s.bag > 0, bagCount: s.bag, bump: s.bump ? 'scale(1.35)' : 'scale(1)',
+      restocked: P.filter(x => x.badge === 'New' || x.badge === 'Restocked').sort((a, b) => a.rank - b.rank).map(x => this.card(x)),
+      bestSellers: [...P].sort((a, b) => a.best - b.best).map(x => this.card(x)),
+      catTiles: CATS.slice(1).map(c => ({ label: c, photo: c.toLowerCase(), img: u(CATIMG[c], 600), open: shopCat(c) })),
+      steps: [{ n: 1, t: 'Add to bag', d: 'Pick size, colour, retail or bundle.' }, { n: 2, t: 'Send on WhatsApp', d: 'Your full order in one message.' }, { n: 3, t: 'Pick up or get it delivered', d: 'Pickup station, Lagos delivery or waybill.' }],
+      tiktoks: TT.map((id, i) => ({ n: i + 1, img: u(id, 400) })), chats: [1, 2, 3, 4].map(n => ({ n })),
+      shopTitle: s.cat === 'All' ? 'All items' : s.cat === 'Bundles' ? 'Wholesale bundles' : s.cat,
+      shopCount: `${list.length} item${list.length === 1 ? '' : 's'}${s.cat === 'Bundles' ? ' · bundles of 20–30 pieces' : ''}`,
+      sortOpts: [['new', 'Newest'], ['price', 'Price low–high']].map(([k, l]) => ({ label: l, onClick: () => this.setState({ sort: k }), bg: s.sort === k ? '#D29A7E' : 'transparent', fg: s.sort === k ? '#0F0E0D' : '#A89F96' })),
+      catChips: CATS.map(c => chip(s.cat === c, c, () => this.setState({ cat: c }))),
+      sizeChips: SIZES.map(z => chip(s.size === z, z, () => this.setState({ size: s.size === z ? null : z }))),
+      filterChips: [chip(s.inStock, s.inStock ? '✓ In stock' : 'In stock', () => this.setState({ inStock: !s.inStock })), chip(s.under5, s.under5 ? '✓ Under ₦5,000' : 'Under ₦5,000', () => this.setState({ under5: !s.under5 }))],
+      shopCards: list.map(x => this.card(x)), shopEmpty: list.length === 0,
+      toast: s.toast, toastOpacity: s.toastOn ? 1 : 0, toastY: s.toastOn ? 'translateY(0)' : 'translateY(10px)',
+    };
+  }
+}
+</script>
+</body>
+</html>

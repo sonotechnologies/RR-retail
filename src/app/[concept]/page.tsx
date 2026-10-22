@@ -9,7 +9,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 import { Photo } from '@/components/ui/Photo';
 import { getMenu, groupByCategory } from '@/lib/menu';
 import { conceptJsonLd } from '@/lib/seo';
-import { getConcept, getSkin } from '@/lib/skin';
+import { getConcept, getFoodSkin, getSkin } from '@/lib/skin';
 
 export const revalidate = 300;
 export const dynamicParams = false;
@@ -17,11 +17,12 @@ export const dynamicParams = false;
 type Props = { params: Promise<{ concept: string }> };
 
 export function generateStaticParams() {
-  return getSkin().concepts.map((c) => ({ concept: c.slug }));
+  const skin = getSkin();
+  return skin.mode === 'food' ? skin.concepts.map((c) => ({ concept: c.slug })) : [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const skin = getSkin();
+  const skin = getFoodSkin();
   const c = getConcept((await params).concept);
   if (!c) return {};
   return {
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ConceptPage({ params }: Props) {
-  const skin = getSkin();
+  const skin = getFoodSkin();
   const c = getConcept((await params).concept);
   if (!c) notFound();
   const menu = (await getMenu()).filter((m) => m.concept === c.slug);

@@ -1,4 +1,4 @@
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 
 /** The client-safe slice of the skin that client components need (no Zod, no server code). */
 export type Site = {
@@ -7,14 +7,14 @@ export type Site = {
   whatsapp: string;
   phone: string;
   concepts: Array<{ slug: string; number: string; name: string; shortName: string; tint: string }>;
-  features: Skin['features'];
+  features: FoodSkin['features'];
   emptyCartImage: string;
   emptyCartHref: string;
   emptyCartLabel: string;
-  socials: Skin['contact']['socials'];
+  socials: FoodSkin['contact']['socials'];
 };
 
-export function toSite(skin: Skin): Site {
+export function toSite(skin: FoodSkin): Site {
   return {
     id: skin.id,
     brand: skin.brand.name,

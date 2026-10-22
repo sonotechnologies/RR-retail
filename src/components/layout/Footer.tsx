@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { weeklySummary } from '@/lib/hours';
 import { socialHandle } from '@/lib/site';
 import { waLink } from '@/lib/whatsapp';
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 
-export function Footer({ skin }: { skin: Skin }) {
+export function Footer({ skin }: { skin: FoodSkin }) {
   const { contact } = skin;
   const socials = (['instagram', 'tiktok', 'facebook'] as const).flatMap((k) => (contact.socials[k] ? [{ k, url: contact.socials[k]! }] : []));
   return (

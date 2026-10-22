@@ -1,9 +1,10 @@
-import type { Concept, MenuItem, Skin } from '@/skins/schema';
+import type { Concept, FoodSkin, MenuItem, StoreSkin } from '@/skins/schema';
+import type { StoreProduct } from './store';
 import { DAYS } from '@/skins/schema';
 
 const DAY_NAME = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' } as const;
 
-const abs = (skin: Skin, src: string) => (src.startsWith('/') ? `${skin.seo.siteUrl.replace(/\/$/, '')}${src}` : src);
+const abs = (skin: FoodSkin, src: string) => (src.startsWith('/') ? `${skin.seo.siteUrl.replace(/\/$/, '')}${src}` : src);
 
 export function openingHours(c: Concept) {
   return DAYS.flatMap((d) => {
@@ -12,12 +13,12 @@ export function openingHours(c: Concept) {
   });
 }
 
-function address(skin: Skin) {
+function address(skin: FoodSkin) {
   return { '@type': 'PostalAddress', streetAddress: skin.contact.address, addressLocality: 'Lagos', addressCountry: 'NG' };
 }
 
 /** Restaurant + Menu, on concept pages. */
-export function conceptJsonLd(skin: Skin, c: Concept, groups: Array<{ name: string; items: MenuItem[] }>) {
+export function conceptJsonLd(skin: FoodSkin, c: Concept, groups: Array<{ name: string; items: MenuItem[] }>) {
   const url = `${skin.seo.siteUrl.replace(/\/$/, '')}/${c.slug}`;
   return {
     '@context': 'https://schema.org',
@@ -49,7 +50,7 @@ export function conceptJsonLd(skin: Skin, c: Concept, groups: Array<{ name: stri
 }
 
 /** LocalBusiness with hours (per concept) and geo, on the Visit page. */
-export function visitJsonLd(skin: Skin) {
+export function visitJsonLd(skin: FoodSkin) {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -62,5 +63,31 @@ export function visitJsonLd(skin: Skin) {
     hasMap: skin.contact.mapsLink,
     sameAs: Object.values(skin.contact.socials).filter(Boolean),
     department: skin.concepts.map((c) => ({ '@type': 'FoodEstablishment', name: c.name, openingHoursSpecification: openingHours(c) })),
+  };
+}
+
+/** Product + Offer (retail; wholesale as a second offer with its bundle minimum), on /p pages. */
+export function productJsonLd(skin: StoreSkin, p: StoreProduct) {
+  const base = skin.seo.siteUrl.replace(/\/$/, '');
+  const url = `${base}/p/${p.slug}`;
+  const availability = p.inStock ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut';
+  const offer = (price: number, extra: Record<string, unknown> = {}) => ({ '@type': 'Offer', price, priceCurrency: 'NGN', availability, url, ...extra });
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.name,
+    url,
+    image: p.images.map((i) => (i.startsWith('/') ? `${base}${i}` : i)),
+    brand: { '@type': 'Brand', name: skin.brand.name },
+    category: skin.store.categories.find((c) => c.slug === p.category)?.name,
+    ...(p.description ? { description: p.description } : {}),
+    ...(p.colours.length ? { color: p.colours.map((c) => c.name).join(', ') } : {}),
+    ...(p.sizes.length ? { size: p.sizes } : {}),
+    offers: [
+      offer(p.retailPrice),
+      ...(p.wholesalePrice
+        ? [offer(p.wholesalePrice, { eligibleQuantity: { '@type': 'QuantitativeValue', minValue: p.wholesaleMin, unitText: 'pieces' }, description: 'Wholesale, per piece' })]
+        : []),
+    ],
   };
 }

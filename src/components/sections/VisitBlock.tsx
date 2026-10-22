@@ -5,12 +5,12 @@ import { MapEmbed } from '@/components/ui/MapEmbed';
 import { OpenBadge } from '@/components/ui/OpenBadge';
 import { getStatus } from '@/lib/hours';
 import { waLink } from '@/lib/whatsapp';
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 
 export const telHref = (phone: string) => `tel:${phone.replace(/\s/g, '')}`;
 
 /** Home "Visit us": map, address, today's hours per concept, call + WhatsApp. */
-export function VisitBlock({ skin }: { skin: Skin }) {
+export function VisitBlock({ skin }: { skin: FoodSkin }) {
   const { contact } = skin;
   return (
     <section className="section-y bg-surface px-5 lg:px-12">

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#080706;font-family:Manrope,sans-serif;color:#F5EFE9;-webkit-font-smoothing:antialiased}a{color:#D29A7E;text-decoration:none}a:hover{color:#F5EFE9}</style>
+</helmet>
+<div style="padding:60px;display:flex;flex-direction:column;gap:80px;width:max-content">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#A89F96;letter-spacing:.1em">RR RETAIL · STORE MODE · SYSTEM BOARD</span>
+    <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:56px">Tokens, components and states</h1>
+    <span style="font-size:14px;color:#A89F96">Prototype: <a href="RR Retail Store.dc.html">mobile store</a> · <a href="RR Retail Desktop.dc.html">desktop store</a></span>
+  </div>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px">1 · Tokens</h2>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:640px;padding:28px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600">RR skin · dark</span><span style="font-size:12px;color:#A89F96;font-weight:700">DEFAULT</span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          <sc-for list="{{ darkTokens }}" as="t" hint-placeholder-count="9">
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:10px;border:1px solid #2D2926;background:{{ t.hex }}"></div><span style="font-size:12px;font-weight:800">{{ t.name }}</span><span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#A89F96">{{ t.hex }}</span></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding-top:8px;border-top:1px solid #2D2926">
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:44px;line-height:1">Rack it. Restock it.</span>
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#A89F96">Cormorant Garamond 600 · headings</span>
+          <span style="font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1">₦4,000</span>
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#A89F96">Manrope 800 · prices</span>
+          <span style="font-size:15px;font-weight:500">Affordable fashion in Lagos. Retail and wholesale.</span>
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#A89F96">Manrope 500 · body</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;padding-top:8px;border-top:1px solid #2D2926">
+          <div style="width:110px;height:80px;border-radius:10px;background:#1B1917;border:1px solid #2D2926;display:flex;align-items:center;justify-content:center;font-size:11px;color:#A89F96">10px card</div>
+          <span style="height:44px;padding:0 20px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;display:flex;align-items:center">Full-round button</span>
+          <span style="height:36px;padding:0 14px;border-radius:999px;border:1px solid #2D2926;font-weight:700;font-size:13px;display:flex;align-items:center">Chip</span>
+        </div>
+      </div>
+      <div style="width:640px;padding:28px;border-radius:14px;background:#FAF6F2;color:#1C1917;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600">Light variant</span><span style="font-size:12px;color:#6E655D;font-weight:700">OTHER CLIENTS</span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          <sc-for list="{{ lightTokens }}" as="t" hint-placeholder-count="9">
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:10px;border:1px solid #E4DCD3;background:{{ t.hex }}"></div><span style="font-size:12px;font-weight:800">{{ t.name }}</span><span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6E655D">{{ t.hex }}</span></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:14px;padding-top:8px;border-top:1px solid #E4DCD3">
+          <div style="width:170px;display:flex;flex-direction:column;gap:4px">
+            <div style="position:relative;aspect-ratio:4/5;border-radius:10px;background:repeating-linear-gradient(135deg,#F1EBE4 0 8px,#ECE4DC 8px 16px)"><span style="position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;background:#D29A7E;color:#1C1917">New</span></div>
+            <span style="font-size:13px;font-weight:600;margin-top:4px">Round Neck Tee</span><span style="font-size:18px;font-weight:800">₦3,500</span><span style="font-size:11px;font-weight:700;color:#9A5F45">Wholesale from ₦2,700</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;justify-content:flex-end">
+            <span style="height:44px;padding:0 20px;border-radius:999px;background:#D29A7E;color:#1C1917;font-weight:800;display:flex;align-items:center">Add to bag</span>
+            <span style="height:44px;padding:0 20px;border-radius:999px;border:1px solid #1C1917;font-weight:700;display:flex;align-items:center">Buy wholesale</span>
+            <span style="font-size:12px;color:#6E655D;max-width:260px">Accent text on light uses a darker rose (#9A5F45) to pass contrast; fills stay #D29A7E.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px">2 · Components and states</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,420px);gap:24px">
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">PRODUCT CARD · DEFAULT / SOLD OUT / ADDED</span>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div style="display:flex;flex-direction:column;gap:3px"><div style="position:relative;aspect-ratio:4/5;border-radius:10px;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)"><span style="position:absolute;top:6px;left:6px;padding:2px 7px;border-radius:999px;font-size:9px;font-weight:800;background:#F5EFE9;color:#0F0E0D">Restocked</span></div><span style="font-size:11px;font-weight:600;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Ladies Basic Top</span><span style="font-size:15px;font-weight:800">₦4,000</span><span style="font-size:10px;font-weight:600;color:#D29A7E">Wholesale from ₦3,200</span></div>
+          <div style="display:flex;flex-direction:column;gap:3px"><div style="position:relative;aspect-ratio:4/5;border-radius:10px;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)"><div style="position:absolute;inset:0;border-radius:10px;background:rgba(15,14,13,.65);display:flex;align-items:center;justify-content:center"><span style="padding:3px 9px;border-radius:999px;background:#5C5650;font-size:9px;font-weight:800">Sold out</span></div></div><span style="font-size:11px;font-weight:600;margin-top:4px;color:#A89F96">Ribbed Crop Top</span><span style="font-size:15px;font-weight:800;color:#A89F96">₦3,000</span><span style="font-size:10px;font-weight:600;color:#D29A7E">Wholesale from ₦2,300</span></div>
+          <div style="display:flex;flex-direction:column;gap:3px"><div style="position:relative;aspect-ratio:4/5;border-radius:10px;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);box-shadow:0 0 0 2px #D29A7E"><span style="position:absolute;top:6px;right:6px;padding:2px 7px;border-radius:999px;font-size:9px;font-weight:800;background:#F5EFE9;color:#0F0E0D">In bag</span></div><span style="font-size:11px;font-weight:600;margin-top:4px">Baggy Jeans</span><span style="font-size:15px;font-weight:800">₦12,000</span><span style="font-size:10px;font-weight:600;color:#D29A7E">Wholesale from ₦9,500</span></div>
+        </div>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">PRICE BLOCK · RETAIL / WHOLESALE</span>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1">₦4,000</span><span style="font-size:13px;font-weight:700;color:#D29A7E">Wholesale ₦3,200/pc · min 20 pcs</span></div>
+        <div style="height:1px;background:#2D2926"></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1">₦3,200</span><span style="font-size:14px;font-weight:700;color:#A89F96">/ piece</span></div><span style="font-size:13px;font-weight:700;color:#D29A7E">Bundle of 20 pcs = ₦64,000 · Retail ₦4,000</span></div>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">MODE TOGGLE · RETAIL / WHOLESALE</span>
+        <div style="display:flex;padding:4px;border-radius:999px;background:#1B1917;border:1px solid #2D2926"><span style="flex:1;height:40px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center">Retail</span><span style="flex:1;height:40px;font-weight:800;font-size:14px;color:#A89F96;display:flex;align-items:center;justify-content:center">Wholesale</span></div>
+        <div style="display:flex;padding:4px;border-radius:999px;background:#1B1917;border:1px solid #2D2926"><span style="flex:1;height:40px;font-weight:800;font-size:14px;color:#A89F96;display:flex;align-items:center;justify-content:center">Retail</span><span style="flex:1;height:40px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center">Wholesale</span></div>
+        <span style="font-size:12px;color:#A89F96">Remembers last choice across products.</span>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">SIZE / COLOUR CHIPS · SELECTED / UNAVAILABLE</span>
+        <div style="display:flex;gap:8px"><span style="min-width:52px;height:44px;border-radius:999px;border:1px solid #2D2926;font-weight:800;display:flex;align-items:center;justify-content:center">S</span><span style="min-width:52px;height:44px;border-radius:999px;background:#F5EFE9;color:#0F0E0D;font-weight:800;display:flex;align-items:center;justify-content:center">M</span><span style="min-width:52px;height:44px;border-radius:999px;border:1px solid #2D2926;font-weight:800;display:flex;align-items:center;justify-content:center">L</span><span style="min-width:52px;height:44px;border-radius:999px;border:1px solid #2D2926;color:#5C5650;font-weight:800;text-decoration:line-through;display:flex;align-items:center;justify-content:center">XL</span></div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="width:44px;height:44px;border-radius:999px;background:#111;border:2px solid #0F0E0D;box-shadow:0 0 0 2px #D29A7E"></span><span style="width:44px;height:44px;border-radius:999px;background:#EEE9E2;border:2px solid #0F0E0D;box-shadow:0 0 0 2px #2D2926"></span><span style="position:relative;width:44px;height:44px;border-radius:999px;background:#6B4A36;border:2px solid #0F0E0D;box-shadow:0 0 0 2px #2D2926;opacity:.35"></span><span style="font-size:12px;color:#A89F96">Selected · default · unavailable</span></div>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">QTY STEPPER · MIN / MAX</span>
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;border:1px solid #2D2926;border-radius:999px;background:#1B1917"><span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#5C5650">−</span><span style="min-width:34px;text-align:center;font-weight:800">1</span><span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px">+</span></div><span style="font-size:12px;color:#A89F96;font-weight:600">Min · 1 piece</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;border:1px solid #2D2926;border-radius:999px;background:#1B1917"><span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px">−</span><span style="min-width:34px;text-align:center;font-weight:800">20</span><span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#5C5650">+</span></div><span style="font-size:12px;color:#A89F96;font-weight:600;text-align:right">Max · 20 bundles = 400 pcs</span></div>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">BADGES · TELEGRAM CTA</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><span style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#D29A7E;color:#0F0E0D">New</span><span style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#F5EFE9;color:#0F0E0D">Restocked</span><span style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#E2574C;color:#fff">Few left</span><span style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#5C5650;color:#F5EFE9">Sold out</span></div>
+        <span style="height:48px;border-radius:999px;background:#229ED9;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">Join the Telegram channel</span>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px;grid-column:span 2">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">BOTTOM TAB BAR · ACTIVE TAB + BAG COUNT</span>
+        <div style="display:flex;gap:20px">
+          <sc-for list="{{ tabBars }}" as="bar" hint-placeholder-count="2">
+            <div style="flex:1;height:64px;display:grid;grid-template-columns:repeat(5,1fr);border:1px solid #2D2926;border-radius:12px;background:#0F0E0D">
+              <sc-for list="{{ bar.tabs }}" as="t" hint-placeholder-count="5">
+                <div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:{{ t.color }}">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="{{ t.d }}"></path></svg>
+                  <span style="font-size:10px;font-weight:700">{{ t.label }}</span>
+                  <sc-if value="{{ t.count }}"><span style="position:absolute;top:6px;left:calc(50% + 5px);min-width:16px;height:16px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center">{{ t.count }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="padding:22px;border-radius:14px;background:#0F0E0D;border:1px solid #2D2926;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A89F96">CATEGORY TILE · DEFAULT / PRESSED</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)"><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,14,13,.9))"></div><span style="position:absolute;left:10px;bottom:8px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px">Men</span></div>
+          <div style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;transform:scale(.96);background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px);box-shadow:0 0 0 2px #D29A7E"><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,14,13,.3) 0%,rgba(15,14,13,.95))"></div><span style="position:absolute;left:10px;bottom:8px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px">Basics</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px">3 · Product page · retail and wholesale (mobile)</h2>
+    <div style="display:flex;gap:32px">
+      <sc-for list="{{ productFrames }}" as="f" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#A89F96">{{ f.tag }}</span>
+          <div style="width:390px;border-radius:24px;overflow:hidden;background:#0F0E0D;border:1px solid #2D2926">
+            <div style="aspect-ratio:4/5;position:relative;background:repeating-linear-gradient(135deg,#1B1917 0 8px,#201D1B 8px 16px)"><span style="position:absolute;left:14px;bottom:14px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#A89F96">swipe gallery · front / back / detail</span><span style="position:absolute;right:14px;bottom:14px;padding:4px 10px;border-radius:999px;background:rgba(15,14,13,.7);font-size:11px;font-weight:700">1/3</span></div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+              <span style="align-self:flex-start;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#F5EFE9;color:#0F0E0D">Restocked</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.05;margin-top:-6px">Ladies Basic Top (Long Sleeve)</span>
+              <div style="display:flex;padding:4px;border-radius:999px;background:#1B1917;border:1px solid #2D2926"><span style="flex:1;height:40px;border-radius:999px;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;background:{{ f.rBg }};color:{{ f.rFg }}">Retail</span><span style="flex:1;height:40px;border-radius:999px;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;background:{{ f.wBg }};color:{{ f.wFg }}">Wholesale</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:38px;font-weight:800;letter-spacing:-.02em;line-height:1">{{ f.price }}</span><span style="font-size:15px;font-weight:700;color:#A89F96">{{ f.unit }}</span></div><span style="font-size:14px;font-weight:700;color:#D29A7E">{{ f.sub }}</span></div>
+              <div style="display:flex;gap:8px"><span style="min-width:48px;height:42px;border-radius:999px;border:1px solid #2D2926;font-weight:800;display:flex;align-items:center;justify-content:center">S</span><span style="min-width:48px;height:42px;border-radius:999px;background:#F5EFE9;color:#0F0E0D;font-weight:800;display:flex;align-items:center;justify-content:center">M</span><span style="min-width:48px;height:42px;border-radius:999px;border:1px solid #2D2926;font-weight:800;display:flex;align-items:center;justify-content:center">L</span><span style="min-width:48px;height:42px;border-radius:999px;border:1px solid #2D2926;color:#5C5650;text-decoration:line-through;font-weight:800;display:flex;align-items:center;justify-content:center">XL</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;border:1px solid #2D2926;border-radius:999px;background:#1B1917"><span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px">−</span><span style="min-width:30px;text-align:center;font-weight:800">{{ f.qty }}</span><span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px">+</span></div><div style="display:flex;flex-direction:column;text-align:right"><span style="font-size:12px;color:#A89F96;font-weight:600">{{ f.qtyLabel }}</span><span style="font-size:20px;font-weight:800">{{ f.total }}</span></div></div>
+              <span style="height:54px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center">Add to bag · {{ f.total }}</span>
+              <span style="height:50px;border-radius:999px;border:1px solid #25D366;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center">Ask on WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px">4 · Bag sheet · empty / retail / wholesale / sending</h2>
+    <div style="display:flex;gap:28px;align-items:flex-end">
+      <sc-for list="{{ bagFrames }}" as="b" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#A89F96">{{ b.tag }}</span>
+          <div style="width:390px;border-radius:20px 20px 0 0;background:#141210;border:1px solid #2D2926;border-bottom:0;padding:10px 18px 20px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+            <span style="align-self:center;width:40px;height:5px;border-radius:999px;background:#5C5650"></span>
+            <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px">Your bag</span>
+            <sc-if value="{{ b.empty }}">
+              <div style="padding:20px 0 10px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center"><span style="font-size:16px;font-weight:600;color:#A89F96;max-width:260px">Nothing here yet. Start with what just restocked.</span><span style="height:48px;padding:0 22px;border-radius:999px;background:#D29A7E;color:#0F0E0D;font-weight:800;font-size:15px;display:flex;align-items:center">See what just restocked</span></div>
+            </sc-if>
+            <sc-if value="{{ b.filled }}">
+              <sc-for list="{{ b.lines }}" as="l" hint-placeholder-count="2">
+                <div style="display:flex;gap:12px;padding-bottom:12px;border-bottom:1px solid #2D2926">
+                  <div style="flex:0 0 56px;aspect-ratio:4/5;border-radius:8px;background:repeating-linear-gradient(135deg,#1B1917 0 6px,#201D1B 6px 12px)"></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+                    <div style="display:flex;justify-content:space-between;gap:8px"><span style="font-size:14px;font-weight:700">{{ l.name }}</span><span style="font-size:15px;font-weight:800">{{ l.total }}</span></div>
+                    <div style="display:flex;gap:6px;align-items:center;font-size:12px;color:#A89F96"><span style="padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800;background:{{ l.tagBg }};color:{{ l.tagFg }}">{{ l.mode }}</span>{{ l.meta }}</div>
+                    <span style="font-size:12px;color:#A89F96">{{ l.unit }}</span>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;font-weight:700;color:#A89F96">Subtotal · {{ b.pieces }}</span><span style="font-size:24px;font-weight:800">{{ b.subtotal }}</span></div>
+              <div style="display:flex;gap:8px"><sc-for list="{{ b.chips }}" as="d" hint-placeholder-count="3"><span style="flex:1;height:42px;border-radius:999px;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.border }}">{{ d.label }}</span></sc-for></div>
+              <div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ b.fields }}" as="fl" hint-placeholder-count="2"><span style="height:44px;border-radius:10px;border:1px solid #2D2926;background:#0F0E0D;padding:0 14px;font-size:14px;display:flex;align-items:center;color:{{ fl.color }}">{{ fl.v }}</span></sc-for></div>
+              <span style="height:54px;border-radius:999px;background:#25D366;color:#0F0E0D;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;opacity:{{ b.btnOpacity }}">{{ b.btn }}</span>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px">5 · WhatsApp message previews</h2>
+    <div style="display:flex;gap:24px;align-items:flex-start">
+      <sc-for list="{{ messages }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#A89F96">{{ m.tag }}</span>
+          <div style="width:340px;border-radius:18px;overflow:hidden;background:#0B141A;border:1px solid #1F2C34">
+            <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#1F2C34"><span style="width:34px;height:34px;border-radius:999px;background:#000;color:#D29A7E;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center">RR</span><div style="display:flex;flex-direction:column"><span style="font-size:14px;font-weight:700;color:#E9EDEF">RR Retail Stores</span><span style="font-size:11px;color:#8696A0">0904 786 8240</span></div></div>
+            <div style="padding:16px 12px 20px;display:flex;flex-direction:column">
+              <div style="align-self:flex-end;max-width:94%;padding:9px 11px 6px;border-radius:10px 2px 10px 10px;background:#005C4B;color:#E9EDEF;font-size:13px;line-height:1.45;white-space:pre-wrap">{{ m.text }}<div style="text-align:right;font-size:10px;color:#8FB8AE;margin-top:2px">12:41 ✓✓</div></div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ICONS = {
+  Home: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z',
+  Shop: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  Wholesale: 'M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8',
+  Pickup: 'M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12zM12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
+  Bag: 'M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2',
+};
+const tok = a => a.map(([name, hex]) => ({ name, hex }));
+const chips = sel => ['Pickup', 'Lagos delivery', 'Waybill'].map(l => ({ label: l, bg: l === sel ? '#D29A7E' : 'transparent', fg: l === sel ? '#0F0E0D' : '#F5EFE9', border: l === sel ? '#D29A7E' : '#2D2926' }));
+const R = { tagBg: '#2D2926', tagFg: '#F5EFE9', mode: 'Retail' }, W = { tagBg: '#D29A7E', tagFg: '#0F0E0D', mode: 'Wholesale' };
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      darkTokens: tok([['bg','#0F0E0D'],['surface','#1B1917'],['text','#F5EFE9'],['text-muted','#A89F96'],['accent','#D29A7E'],['accent-ink','#0F0E0D'],['sale','#E2574C'],['sold-out','#5C5650'],['line','#2D2926']]),
+      lightTokens: tok([['bg','#FAF6F2'],['surface','#F1EBE4'],['text','#1C1917'],['text-muted','#6E655D'],['accent','#D29A7E'],['accent-text','#9A5F45'],['sale','#C8443A'],['sold-out','#B5ABA2'],['line','#E4DCD3']]),
+      tabBars: ['Home', 'Bag'].map(a => ({ tabs: Object.keys(ICONS).map(k => ({ label: k, d: ICONS[k], color: k === a ? '#D29A7E' : '#A89F96', count: k === 'Bag' ? (a === 'Bag' ? 3 : 1) : 0 })) })),
+      productFrames: [
+        { tag: 'RETAIL MODE', rBg: '#D29A7E', rFg: '#0F0E0D', wBg: 'transparent', wFg: '#A89F96', price: '₦4,000', unit: '', sub: 'Wholesale ₦3,200/pc · min 20 pcs', qty: 2, qtyLabel: '2 pieces', total: '₦8,000' },
+        { tag: 'WHOLESALE MODE', rBg: 'transparent', rFg: '#A89F96', wBg: '#D29A7E', wFg: '#0F0E0D', price: '₦3,200', unit: '/ piece', sub: 'Bundle of 20 pcs = ₦64,000 · Retail ₦4,000', qty: 2, qtyLabel: '2 bundles = 40 pieces', total: '₦128,000' },
+      ],
+      bagFrames: [
+        { tag: 'EMPTY', empty: true, filled: false },
+        { tag: 'RETAIL ORDER', empty: false, filled: true, pieces: '3 pieces', subtotal: '₦20,000', chips: chips('Pickup'), btnOpacity: 1, btn: 'Send order on WhatsApp · ₦20,000',
+          lines: [{ ...R, name: 'Ladies Basic Top', meta: 'Black · M', unit: '2 × ₦4,000', total: '₦8,000' }, { ...R, name: 'Baggy Jeans', meta: 'Light wash · 30', unit: '1 × ₦12,000', total: '₦12,000' }],
+          fields: [{ v: 'Adaeze', color: '#F5EFE9' }, { v: '0803 000 0000', color: '#F5EFE9' }] },
+        { tag: 'WHOLESALE ORDER', empty: false, filled: true, pieces: '70 pieces', subtotal: '₦209,000', chips: chips('Waybill'), btnOpacity: 1, btn: 'Send order on WhatsApp · ₦209,000',
+          lines: [{ ...W, name: 'Round Neck Tee', meta: 'White · mixed', unit: '1 × 30 pcs @ ₦2,700', total: '₦81,000' }, { ...W, name: 'Ladies Basic Top', meta: 'Black · mixed', unit: '2 × 20 pcs @ ₦3,200', total: '₦128,000' }],
+          fields: [{ v: 'Tunde (TJ Boutique)', color: '#F5EFE9' }, { v: 'Ibadan · Iwo Road park', color: '#F5EFE9' }] },
+        { tag: 'SENDING', empty: false, filled: true, pieces: '3 pieces', subtotal: '₦20,000', chips: chips('Lagos delivery'), btnOpacity: .7, btn: 'Opening WhatsApp…',
+          lines: [{ ...R, name: 'Fleece Joggers', meta: 'Grey · L', unit: '1 × ₦7,500', total: '₦7,500' }],
+          fields: [{ v: 'Kemi', color: '#F5EFE9' }, { v: '12 Admiralty Way, Lekki', color: '#F5EFE9' }] },
+      ],
+      messages: [
+        { tag: 'RETAIL ORDER', text: "Hi RR, I'd like to order:\n\n1. Ladies Basic Top (Long Sleeve) · Black, M\n   2 pcs × ₦4,000 = ₦8,000\n2. Baggy Jeans · Light wash, 30\n   1 pc × ₦12,000 = ₦12,000\n\nSubtotal: ₦20,000\nDelivery: Pickup\nName: Adaeze\nPhone: 0803 000 0000" },
+        { tag: 'WHOLESALE ORDER', text: "Hi RR, I'd like to order:\n\n1. Round Neck Tee (WHOLESALE) · White, mixed\n   1 bundle × 30 pcs @ ₦2,700 = ₦81,000\n2. Ladies Basic Top (WHOLESALE) · Black, mixed\n   2 bundles × 20 pcs @ ₦3,200 = ₦128,000\n\nSubtotal: ₦209,000\nDelivery: Waybill (please confirm fee)\nName: Tunde (TJ Boutique)\nPhone: 0805 000 0000\nAddress: Ibadan · Iwo Road park" },
+        { tag: 'PRODUCT QUESTION', text: "Hi RR, is this available?\nLadies Basic Top (Long Sleeve), Black, size M\nRetail: ₦4,000\nrrretail.ng/p/lst" },
+        { tag: 'CUSTOM BUNDLE', text: "Hi RR, I want a custom wholesale mix:\n\n1. Baggy Jeans · 10 pcs\n2. Fleece Joggers · 10 pcs\n3. Vintage Graphic Top · 15 pcs\n\nTotal: 35 pcs\nPlease send price and what's in stock." },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

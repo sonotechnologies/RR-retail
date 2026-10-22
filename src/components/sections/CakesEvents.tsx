@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { Reveal } from '@/components/motion/Reveal';
 import { Photo } from '@/components/ui/Photo';
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 
 /** Two side-by-side panels linking to the cake and events forms. */
-export function CakesEvents({ skin }: { skin: Skin }) {
+export function CakesEvents({ skin }: { skin: FoodSkin }) {
   const panels = [
     skin.features.cakes && { href: '/cakes', label: 'Cakes & bulk orders', title: 'Birthdays, trays, pastry boxes →', image: skin.emptyCartImage },
     skin.features.events && { href: '/events', label: 'Events & private hire', title: 'Take over a room →', image: skin.events.spaces[0]?.image ?? skin.brand.storyImages[0] },

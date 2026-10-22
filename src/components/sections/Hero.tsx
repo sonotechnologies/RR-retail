@@ -2,13 +2,13 @@ import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { buttonClass } from '@/components/ui/Button';
 import { Photo } from '@/components/ui/Photo';
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 import { HeroVideo } from './HeroVideo';
 
 /** "Four kitchens. One address." → one rising line per sentence. */
 const lines = (s: string) => s.split(/(?<=\.)\s+/).filter(Boolean);
 
-export function Hero({ skin }: { skin: Skin }) {
+export function Hero({ skin }: { skin: FoodSkin }) {
   const { brand, features } = skin;
   const media = brand.heroMedia;
   const poster = media.type === 'video' ? (media.poster ?? media.src) : media.src;

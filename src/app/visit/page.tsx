@@ -9,14 +9,14 @@ import { MapEmbed } from '@/components/ui/MapEmbed';
 import { OpenBadge } from '@/components/ui/OpenBadge';
 import { getStatus, weeklySummary } from '@/lib/hours';
 import { visitJsonLd } from '@/lib/seo';
-import { getSkin } from '@/lib/skin';
+import { getFoodSkin } from '@/lib/skin';
 import { waLink } from '@/lib/whatsapp';
 
 export const revalidate = 300;
 export const metadata: Metadata = { title: 'Visit', alternates: { canonical: '/visit' } };
 
 export default function VisitPage() {
-  const skin = getSkin();
+  const skin = getFoodSkin();
   const { contact } = skin;
   const map = <MapEmbed src={contact.mapEmbedUrl} title={`Map: ${contact.address}`} dark={skin.theme.mode === 'dark'} className="h-[380px] !rounded-none border-x-0 border-t-0 lg:h-full lg:border-0" />;
   return (

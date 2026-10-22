@@ -11,9 +11,18 @@ import { DesktopMotion } from '@/components/motion/DesktopMotion';
 import { IntroCurtain, introScript } from '@/components/motion/IntroCurtain';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 import { RouteSignal } from '@/components/motion/TransitionLink';
+import { BagHydrator } from '@/components/store/BagHydrator';
+import { BagSheet } from '@/components/store/BagSheet';
+import { StoreFooter } from '@/components/store/StoreFooter';
+import { StoreHeader } from '@/components/store/StoreHeader';
+import { StoreSiteProvider } from '@/components/store/StoreSiteContext';
+import { StoreToast } from '@/components/store/StoreToast';
+import { TabBar } from '@/components/store/TabBar';
 import { getPromo } from '@/lib/menu';
 import { toSite } from '@/lib/site';
 import { getSkin } from '@/lib/skin';
+import { toStoreSite } from '@/lib/storeSite';
+import type { FoodSkin, StoreSkin } from '@/skins/schema';
 import { fontVars } from './fonts';
 import './globals.css';
 
@@ -46,7 +55,6 @@ export function generateViewport(): Viewport {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const skin = getSkin();
-  const site = toSite(skin);
   const promo = await getPromo();
   const fonts = fontVars(skin);
   const c = skin.theme.colors;
@@ -58,6 +66,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     '--accent': c.accent,
     '--ink': c.accentInk,
     '--line': c.line,
+    ...(c.accentText && { '--accent-text': c.accentText }),
+    ...(c.sale && { '--sale': c.sale }),
+    ...(c.soldOut && { '--soldout': c.soldOut }),
     '--rc': skin.theme.radius.card,
     '--rb': skin.theme.radius.button,
     ...fonts.style,
@@ -65,7 +76,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   } as CSSProperties;
 
   return (
-    <html lang="en-NG" className={fonts.className} style={tokens} data-skin={skin.id} suppressHydrationWarning>
+    <html lang="en-NG" className={fonts.className} style={tokens} data-skin={skin.id} data-mode={skin.mode} suppressHydrationWarning>
       <head>
         {/* Decides before first paint whether the desktop intro plays (adds data-intro to <html>). */}
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
@@ -78,21 +89,48 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <IntroCurtain brand={skin.brand.name} />
         <MotionProvider>
           {promo && <PromoBanner text={promo.text} link={promo.link} />}
-          <Header site={site} />
-          <main id="main">{children}</main>
-          <Footer skin={skin} />
-          {skin.features.cart && (
-            <>
-              <CartDrawer site={site} />
-              <Toast />
-            </>
-          )}
-          <FloatingWhatsApp number={skin.contact.whatsapp} brand={skin.brand.name} />
+          {skin.mode === 'store' ? <StoreShell skin={skin}>{children}</StoreShell> : <FoodShell skin={skin}>{children}</FoodShell>}
         </MotionProvider>
-        <CartHydrator skinId={skin.id} />
         <DesktopMotion />
         <RouteSignal />
       </body>
     </html>
+  );
+}
+
+/** Multi-concept food spots: concept nav, cart drawer. */
+function FoodShell({ skin, children }: { skin: FoodSkin; children: ReactNode }) {
+  const site = toSite(skin);
+  return (
+    <>
+      <Header site={site} />
+      <main id="main">{children}</main>
+      <Footer skin={skin} />
+      {skin.features.cart && (
+        <>
+          <CartDrawer site={site} />
+          <Toast />
+        </>
+      )}
+      <FloatingWhatsApp number={skin.contact.whatsapp} greeting={skin.brand.name} />
+      <CartHydrator skinId={skin.id} />
+    </>
+  );
+}
+
+/** WhatsApp-first stores: shop header, bottom tab bar, bag sheet. */
+function StoreShell({ skin, children }: { skin: StoreSkin; children: ReactNode }) {
+  const site = toStoreSite(skin);
+  return (
+    <StoreSiteProvider site={site}>
+      <StoreHeader site={site} />
+      <main id="main">{children}</main>
+      <StoreFooter skin={skin} />
+      <FloatingWhatsApp number={skin.contact.whatsapp} greeting={site.shortName} store />
+      <TabBar site={site} />
+      <BagSheet site={site} />
+      <StoreToast />
+      <BagHydrator skinId={skin.id} />
+    </StoreSiteProvider>
   );
 }

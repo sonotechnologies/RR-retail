@@ -16,17 +16,17 @@ function embedSrc(e: Embed): string | null {
 }
 
 /** 9:16 poster with a play button. The embed loads only on tap; profile links open in a new tab. */
-export function VideoTile({ embed, label }: { embed: Embed; label: string }) {
+export function VideoTile({ embed, label, className = 'w-[150px] lg:w-[228px]' }: { embed: Embed; label: string; className?: string }) {
   const [playing, setPlaying] = useState(false);
   const src = embedSrc(embed);
   const play = () => (src ? setPlaying(true) : window.open(embed.url, '_blank', 'noopener'));
   return (
-    <div className={`relative aspect-[9/16] shrink-0 snap-start overflow-hidden rounded-card bg-[#2a241f] ${playing ? 'shadow-[inset_0_0_0_2px_var(--accent)]' : ''} w-[150px] lg:w-[228px]`}>
+    <div className={`relative aspect-[9/16] shrink-0 snap-start overflow-hidden rounded-card bg-[#2a241f] ${playing ? 'shadow-[inset_0_0_0_2px_var(--accent)]' : ''} ${className}`}>
       {playing && src ? (
         <iframe src={src} title={label} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen className="absolute inset-0 size-full border-0" />
       ) : (
         <button type="button" onClick={play} className="group absolute inset-0 flex items-center justify-center" aria-label={`Play: ${label}`} data-cursor="view">
-          <Photo src={embed.poster} alt="" sizes="(min-width:1024px) 228px, 150px" className="transition-transform duration-700 ease-out-expo group-hover:scale-105" />
+          <Photo src={embed.poster} alt="" sizes="(min-width:1024px) 228px, 33vw" className="transition-transform duration-700 ease-out-expo group-hover:scale-105" />
           <span className="relative flex size-11 items-center justify-center rounded-full bg-paper/90 text-coal transition-transform group-hover:scale-110 lg:size-[52px]">
             <PlayIcon width={20} height={20} className="ml-0.5" />
           </span>

@@ -4,11 +4,11 @@ import { OpenBadge } from '@/components/ui/OpenBadge';
 import { Photo } from '@/components/ui/Photo';
 import { SectionHead } from '@/components/ui/SectionHead';
 import { getStatus } from '@/lib/hours';
-import type { Concept, Skin } from '@/skins/schema';
+import type { Concept, FoodSkin } from '@/skins/schema';
 import { ConceptCarousel } from './ConceptCarousel';
 
 /** Numbered editorial cards. Mobile: scroll-snap carousel; desktop: grid, pinned horizontal scroll when enhanced. */
-export function Concepts({ skin }: { skin: Skin }) {
+export function Concepts({ skin }: { skin: FoodSkin }) {
   return (
     <section id="concepts" className="scroll-mt-16 overflow-x-clip pt-[72px] pb-[72px] lg:pt-[140px] lg:pb-0" data-pin-section>
       <div className="wrap flex flex-col gap-7 lg:gap-14 lg:pb-[140px]">

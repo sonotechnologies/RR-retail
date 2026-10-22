@@ -1,9 +1,9 @@
 import { Reveal } from '@/components/motion/Reveal';
 import { Photo } from '@/components/ui/Photo';
-import type { Skin } from '@/skins/schema';
+import type { FoodSkin } from '@/skins/schema';
 
 /** Asymmetric photo collage with the short story paragraph. */
-export function Space({ skin }: { skin: Skin }) {
+export function Space({ skin }: { skin: FoodSkin }) {
   const [a, b, c] = skin.brand.storyImages;
   return (
     <section className="section-y bg-surface px-5 lg:px-12">

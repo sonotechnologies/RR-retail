@@ -4,13 +4,13 @@ import { Suspense } from 'react';
 import { ReserveForm } from '@/components/forms/ReserveForm';
 import { FormPage } from '@/components/layout/FormPage';
 import { lagosToday } from '@/lib/dates';
-import { getSkin } from '@/lib/skin';
+import { getFoodSkin } from '@/lib/skin';
 
 export const revalidate = 300;
 export const metadata: Metadata = { title: 'Reserve a table', alternates: { canonical: '/reserve' } };
 
 export default function ReservePage() {
-  const skin = getSkin();
+  const skin = getFoodSkin();
   if (!skin.features.reserve) notFound();
   const sectionBySlug = Object.fromEntries(
     skin.concepts.flatMap((c) => {

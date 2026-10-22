@@ -2,7 +2,7 @@
   "name": "maison-lekki",
   "version": "0.1.0",
   "private": true,
-  "description": "Config-driven Next.js template for multi-concept food spots. Skins: maison-lekki (default), napoleon.",
+  "description": "Config-driven Next.js template for WhatsApp-first businesses. Food mode (multi-concept restaurants): maison-lekki (default), napoleon. Store mode (clothing, retail + wholesale): rr-retail.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test --experimental-strip-types src/lib/*.test.ts",
     "dev:napoleon": "SKIN=napoleon next dev",
-    "build:napoleon": "SKIN=napoleon next build"
+    "build:napoleon": "SKIN=napoleon next build",
+    "dev:rr-retail": "SKIN=rr-retail next dev",
+    "build:rr-retail": "SKIN=rr-retail next build"
   },
   "engines": {
     "node": ">=20"
