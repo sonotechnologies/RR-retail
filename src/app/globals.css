@@ -1,0 +1,329 @@
+@import 'tailwindcss';
+
+/*
+ * Every colour, font and radius is a CSS variable set on <html> from the active skin
+ * (see app/layout.tsx). Layouts only ever use these tokens.
+ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-wa: #25d366;
+  --color-wa-ink: #0b2e17;
+  --color-error: #b23a1e;
+  --color-paper: #fffbf5;
+  --color-coal: #1e1b17;
+  --font-display: var(--fd);
+  --font-sans: var(--fb);
+  --radius-card: var(--rc);
+  --radius-btn: var(--rb);
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --breakpoint-lg: 64rem;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--fb);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+  @media (min-width: 64rem) {
+    body {
+      font-size: 17px;
+    }
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.8;
+  }
+}
+
+/* Type scale: mobile → desktop (display 44→96, h1 34→64, h2 26→40, h3 20→24). */
+@utility display {
+  font-family: var(--fd);
+  font-weight: var(--fdw);
+  font-optical-sizing: auto;
+}
+@utility t-display {
+  font-family: var(--fd);
+  font-weight: var(--fdw);
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  @media (min-width: 64rem) {
+    font-size: 96px;
+    letter-spacing: -0.025em;
+  }
+}
+@utility t-h1 {
+  font-family: var(--fd);
+  font-weight: var(--fdw);
+  font-size: 34px;
+  line-height: 1.05;
+  @media (min-width: 64rem) {
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+}
+@utility t-h2 {
+  font-family: var(--fd);
+  font-weight: var(--fdw);
+  font-size: 26px;
+  line-height: 1.15;
+  @media (min-width: 64rem) {
+    font-size: 40px;
+    line-height: 1.1;
+  }
+}
+@utility t-h3 {
+  font-family: var(--fd);
+  font-weight: var(--fdw);
+  font-size: 20px;
+  line-height: 1.15;
+  @media (min-width: 64rem) {
+    font-size: 24px;
+  }
+}
+/* Small caps label: 12px, 0.12em tracking. */
+@utility label {
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+/* Content max width 1280; 20px gutter mobile, 48px desktop. */
+@utility wrap {
+  width: min(1280px, calc(100% - 40px));
+  margin-inline: auto;
+  @media (min-width: 64rem) {
+    width: min(1280px, calc(100% - 96px));
+  }
+}
+@utility section-y {
+  padding-block: 72px;
+  @media (min-width: 64rem) {
+    padding-block: 140px;
+  }
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+@utility clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Menu row: content | thumb+add on mobile; thumb | content+add on desktop. */
+.menu-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'c t' 'c a';
+}
+@media (min-width: 64rem) {
+  .menu-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: 't c' 't a';
+  }
+}
+
+/* ---------- Motion (transform + opacity only) ---------- */
+
+@keyframes rise {
+  from {
+    transform: translateY(110%);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--fade-y, 16px));
+  }
+}
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes bounce-count {
+  50% {
+    transform: scale(1.35);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.hero-media {
+  animation: settle 1200ms var(--ease-out-expo) both;
+}
+.hero-line {
+  display: block;
+  animation: rise 800ms var(--ease-out-expo) both;
+  animation-delay: calc(var(--d, 0) * 90ms + 250ms);
+}
+.hero-sub {
+  --fade-y: 16px;
+  animation: fade-up 600ms var(--ease-out-expo) 450ms both;
+}
+.brand-fade {
+  animation: fade 300ms ease-out both;
+}
+@media (min-width: 64rem) {
+  .hero-sub {
+    --fade-y: 24px;
+  }
+}
+/* Desktop intro (first visit per session): curtain covers the hero, so its timeline starts later. */
+html[data-intro] .hero-media {
+  animation-delay: 450ms;
+}
+html[data-intro] .hero-line {
+  animation-delay: calc(var(--d, 0) * 90ms + 700ms);
+}
+html[data-intro] .hero-sub {
+  animation-delay: 900ms;
+}
+.intro-curtain {
+  display: none;
+}
+html[data-intro] .intro-curtain {
+  display: flex;
+}
+
+.page-fade {
+  animation: fade 250ms ease-out both;
+}
+html.vt .page-fade {
+  animation: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: spin 0.8s linear infinite;
+}
+
+::view-transition-group(*) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+}
+
+/* Custom cursor (desktop, fine pointer only; mounted by the desktop motion tier). */
+.cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  font-weight: 700;
+  transition:
+    width 300ms var(--ease-out-expo),
+    height 300ms var(--ease-out-expo),
+    margin 300ms var(--ease-out-expo),
+    font-size 200ms,
+    opacity 200ms;
+  will-change: transform;
+}
+.cursor-dot.is-view {
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--text);
+}
+html.has-cursor [data-cursor] {
+  cursor: none;
+}
+
+/* Pinned horizontal concepts (desktop tier adds .is-pinned). */
+.is-pinned [data-pin-track] {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+.is-pinned [data-pin-track] > * {
+  width: clamp(340px, 30vw, 440px);
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media,
+  .hero-line {
+    animation: none;
+  }
+  .hero-sub,
+  .brand-fade {
+    animation: fade 300ms ease-out both;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
